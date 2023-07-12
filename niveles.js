@@ -51,8 +51,8 @@
     // terreno piso
 
     ser[3].x=-50; 
-    //ser[3].y=650; 
-    ser[3].y=550; 
+    ser[3].y=650; 
+    //ser[3].y=550; 
     ser[3].estado=1; 
     ser[3].subestado=0; 
     ser[3].w=480; 
@@ -265,7 +265,7 @@
     imagen[6].src = 'recursos/6.1.png';
 
     // bolas de ki jugador2
-/*
+
     ser[17].x=550; ser[17].y=0; ser[17].estado=1;  ser[17].subestado=0; 
     ser[17].w=50; ser[17].h=50; ser[17].volumen=500; ser[17].dibujo=6; ser[17].fotograma=1; ser[17].linea=1; 
     ser[17].vidamax=10; ser[17].accion3=0; ser[17].masa=100; ser[17].potencia=10;
@@ -283,7 +283,7 @@
     ser[19].vidamax=10; ser[19].accion3=0; ser[19].masa=100; ser[19].potencia=10;
     ser[19].accion=1; ser[19].etereo=0; ser[19].potencia=40; ser[19].vida=0;
     imagen[6].src = 'recursos/6.png';
-*/
+
     ser[20].x=700; ser[20].y=0; ser[20].estado=1;  ser[20].subestado=0; 
     ser[20].w=50; ser[20].h=50; ser[20].volumen=500; ser[20].dibujo=6; ser[20].fotograma=1; ser[20].linea=1; 
     ser[20].vidamax=10; ser[20].accion3=0; ser[20].masa=100; ser[20].potencia=10;
@@ -340,3 +340,5 @@
 
     pantalla_juego=1;
 }
+
+console.log('niveles')

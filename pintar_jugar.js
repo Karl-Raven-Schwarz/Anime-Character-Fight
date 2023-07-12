@@ -1,7 +1,6 @@
 function pintar_jugar() {
-
-	ctx.fillStyle = '#000440';
-	ctx.fillRect(0,0,juego.width,juego.height);
+	ctx.fillStyle = '#000000';
+	ctx.fillRect(0, 0, juego.width, juego.height);
 
 	ser[24].dibuja(ctx);
 	ser[3].dibuja(ctx);
@@ -23,7 +22,7 @@ function pintar_jugar() {
 
 	contador = 11;
 	while (contador < 21) {
-		contador = contador + 1;
+		contador += 1;
 		if (ser[contador].vida>0) ser[contador].dibuja(ctx);
 	}	
 
@@ -36,3 +35,5 @@ function pintar_jugar() {
 	if (vida1 < 6) ser[6].dibuja(ctx);
 	if (vida2 < 6) ser[6].dibuja(ctx);
 }
+
+console.log('pintar jugar')

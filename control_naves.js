@@ -126,3 +126,5 @@ function control_naves () {
 		contador_bola2	= 1;	
 	}	
 }
+
+console.log('control naves')
