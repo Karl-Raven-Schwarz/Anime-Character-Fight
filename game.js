@@ -2879,6 +2879,7 @@ function niveles() {
 	ser[20].etereo = 0; 
 	ser[20].potencia = 40; 
 	ser[20].vida = 0;
+	
     imagen[6].src = 'recursos/6.png';
 
     ser[21].x = 750; 
@@ -2902,153 +2903,127 @@ function niveles() {
 	ser[21].etereo = 0; 
 	ser[21].potencia = 40; 
 	ser[21].vida = 0;
+	
     imagen[6].src = 'recursos/6.png';
 
-    // hits
-    ser[22].x = 350; 
-	ser[22].y = 350; 
-	ser[22].estado = 1;  
-	ser[22].subestado = 0;
+    //#region Hits
 
-    ser[22].w = 80; 
-	ser[22].h = 80; 
+	// Player 1
+    // height, width
+    ser[22].w = ser[22].h = 80; 
+
+	// volume
 	ser[22].volumen = 100; 
+	
+	// image
 	ser[22].dibujo = 8; 
-	ser[22].fotograma = 1; 
 	ser[22].linea = 1;
 
-    ser[22].vidamax = 10; 
-	ser[22].accion3 = 0; 
-	ser[22].masa = 100; 
-	ser[22].potencia = 10;
+	// Player 2
+	// height, width
+    ser[23].w = ser[23].h = 80; 
 
-    ser[22].accion = 1; 
-	ser[22].etereo = 0; 
-	ser[22].potencia = 40; 
-	ser[22].vida = 10;
-    imagen[8].src = 'recursos/8.png';
-
-    ser[23].x = 350; 
-	ser[23].y = 450; 
-	ser[23].estado = 1;  
-	ser[23].subestado = 0;
-
-    ser[23].w = 80; 
-	ser[23].h = 80; 
+	// volume
 	ser[23].volumen = 100; 
+	
+	// image
 	ser[23].dibujo = 8; 
-	ser[23].fotograma = 1; 
 	ser[23].linea = 1;
-
-    ser[23].vidamax = 10; 
-	ser[23].accion3 = 0; 
-	ser[23].masa = 100; 
-	ser[23].potencia = 10;
-
-    ser[23].accion = 1; 
-	ser[23].etereo = 0; 
-	ser[23].potencia = 40; 
-	ser[23].vida = 10;
+	
     imagen[8].src = 'recursos/8.png';
+	//#endregion
 
-    // background
-    ser[24].x = 0; 
-	ser[24].y = 0; 
-	ser[24].estado = 1;  
-	ser[24].subestado = 0;
+    //#region Background
 
-    ser[24].w = 80; 
-	ser[24].h = 80; 
-	ser[24].volumen = 1280; 
+	// coordinates
+    ser[24].x = ser[24].y = 0; 
+
+	// volume
+	ser[24].volumen = 1280;
+
+	// image
 	ser[24].dibujo = 9; 
+
+	// --
 	ser[24].fotograma = 1; 
 	ser[24].linea = 1;
 
-    ser[24].vidamax = 10; 
-	ser[24].accion3 = 0; 
-	ser[24].masa = 100; 
-	ser[24].potencia = 10;
-
-    ser[24].accion = 1; 
-	ser[24].etereo = 0; 
-	ser[24].potencia = 40; 
-	ser[24].vida = 10;
     imagen[9].src = 'recursos/9.png';
 
-    // platforms
+	//#endregion
 
+    //#region Platforms
+
+	// coordinates
     ser[25].x = -300; 
 	ser[25].y = 200; 
-	ser[25].estado = 1;  
-	ser[25].subestado = 0;
 
+	// height, width
     ser[25].w = 480; 
 	ser[25].h = 100; 
+
+	// volume
 	ser[25].volumen = 500; 
+
+	// image
 	ser[25].dibujo = 3; 
+
+	// --
 	ser[25].fotograma = 1; 
 	ser[25].linea = 1;
-
-    ser[25].vidamax = 10; 
-	ser[25].accion3 = 0; 
 	ser[25].masa = 100; 
-	ser[25].potencia = 10;
-
-    ser[25].accion = 0; 
 	ser[25].etereo = 2; 
-	ser[25].potencia = 40; 
 	ser[25].vida = 10;
-    imagen[3].src = 'recursos/1.png';
 
+	//-----------------------
 
+	// coordinates
     ser[26].x = 100; 
-	ser[26].y = 350; 
-	ser[26].estado = 1;  
-	ser[26].subestado = 0;
+	ser[26].y = 300; 
 
+	// height, width
     ser[26].w = 480; 
 	ser[26].h = 100; 
+
+	// volume
 	ser[26].volumen = 500; 
+
+	// image
 	ser[26].dibujo = 3; 
+
+	// --
 	ser[26].fotograma = 1; 
 	ser[26].linea = 1;
-
-    ser[26].vidamax = 10; 
-	ser[26].accion3 = 0; 
 	ser[26].masa = 100; 
-	ser[26].potencia = 10;
-
-    ser[26].accion = 0; 
 	ser[26].etereo = 2; 
-	ser[26].potencia = 40; 
 	ser[26].vida = 10;
-    imagen[3].src = 'recursos/3.png';
 
+	////-----------------------
 
+	// coordinates
     ser[27].x = 550; 
 	ser[27].y = 500; 
-	ser[27].estado = 1;  
-	ser[27].subestado = 0;
 
+	// height, width
     ser[27].w = 575; 
 	ser[27].h = 50; 
+
+	// volume
 	ser[27].volumen = 50000; 
+
+	// image
 	ser[27].dibujo = 3; 
+
+	// --
 	ser[27].fotograma = 1; 
 	ser[27].linea = 1;
-
-    ser[27].vidamax = 10; 
-	ser[27].accion3 = 0; 
 	ser[27].masa = 100; 
-	ser[27].potencia = 10;
-
-    ser[27].accion = 0; 
 	ser[27].etereo = 2; 
-	ser[27].potencia = 40; 
 	ser[27].vida = 10;
+
     imagen[3].src = 'recursos/3.png';
+
+	//#endregion
 
     pantalla_juego = 1;
 }
-
-console.log('niveles')
