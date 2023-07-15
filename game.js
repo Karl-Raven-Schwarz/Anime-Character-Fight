@@ -385,6 +385,7 @@ var cantidad_seres = 30;
 var cantidad_seresmax = 50;
 
 var vida1 = 100;
+//--------------------------------------------------------------------------------
 var vida2 = 100;
 var ki1 = 100;
 var ki2 = 100;
@@ -411,13 +412,10 @@ var cantidad_espejismos = 2;
 var cantidad_espejismosmax = 20;
 
 var espejismo = new Array();
-//for (let i = 1; i < 21; i++) espejismo[i] = new espejo(0,0,0,0,0,0,0);
 for (let i = 1; i < 21; i++) espejismo[i] = new Mirror(0,0,0,0,0,0,0);
-
 
 var cual_portada = 0;
 var presiona_portada = 0;
-
 
 // mensajes
 var cantidad_mensajes = 21;
@@ -426,17 +424,14 @@ var cantidad_mensajesmax = 21;
 var mensaje = new Array();
 for (let i = 1; i < 4; i++) mensaje[i] = new mensajex(0,0,0,0,0,0);
 
-
 // dibujo
 var cordenadax_dibuja = 0;
 var cordenaday_dibuja = 0;
-
 
 // contadores 
 var contador1 = 0;
 var contador2 = 0;
 var contador3 = 0;
-
 
 // control
 var mousex = 0;
@@ -481,7 +476,6 @@ var tecla_espacio = 32;
 var tecla_retroceso = 8;
 var tecla_mayus = 16;
 var tecla_control = 17;
-
 
 
 var tecla_disparo = tecla_h;
@@ -801,9 +795,8 @@ function bucle() {
         GenerateCover(); 
     }
     
-    if (pantalla_juego == 3) {
-        niveles();
-    }
+    if (pantalla_juego == 3) CreateScene();
+    
 }
 
 
@@ -848,7 +841,6 @@ console.log('game')
 
 
 function jugar() {
-
 	// Movimientos 
 	if (ser[1].subestado==0) ser[1].estado=1;
 	if (ser[2].subestado==0) ser[2].estado=1;
@@ -890,14 +882,13 @@ function jugar() {
 	}	
 		
 	// Golpes
-
 	if (ser[22].vida>0 && ser[22].accion==1) {
 		ser[22].x = ser[22].x + 5; 
-		ser[22].vida=ser[22].vida-1;
+		ser[22].vida = ser[22].vida-1;
 	}
 	if (ser[22].vida>0 && ser[22].accion==2) {
 		ser[22].x = ser[22].x - 5; 
-		ser[22].vida=ser[22].vida-1;
+		ser[22].vida = ser[22].vida-1;
 	}
 	if (ser[22].Clash(ser[2]) == 1 && ser[2].estado != 12 && ser[22].vida > 0) {
 		ser[2].estado = 12; 
@@ -2386,7 +2377,7 @@ function control_naves () {
 
 console.log('control naves')
 
-function niveles() {
+function CreateScene() {
     contador = 1;
     while (contador < cantidad_seres) {
         contador += 1;
@@ -2396,14 +2387,10 @@ function niveles() {
         ser[contador].impulsoy = 0;
     }
 
-    // player 1
+    //#region Player 1
     ser[1].x = 100; 
     ser[1].y = 500; 
-    ser[1].estado = 1;  
     ser[1].subestado = 0; 
-    ser[1].estado2 = 1;  
-    ser[1].subestado2 = 0; 
-
     ser[1].w = 70; 
     ser[1].h = 70; 
     ser[1].volumen = 100; 
@@ -2411,500 +2398,129 @@ function niveles() {
     ser[1].fotograma = 1; 
     ser[1].linea = 1; 
 
-    ser[1].vidamax = 10; 
-    ser[1].accion3 = 0; 
+	// Physics
     ser[1].masa = 10; 
-    ser[1].potencia = 10;
-
-    ser[1].accion = 0; 
     ser[1].etereo = 1; 
-    ser[1].potencia = 40; 
-    ser[1].vida = 10;
-
+    ser[1].vida = 1;
     direccion1 = 1;
+
     imagen[1].src = 'recursos/p1.png';
+	//#endregion
 
-    // player 2
-
+    //#region Player 2
     ser[2].x = 800; 
     ser[2].y = 500; 
-    ser[2].estado = 1;  
     ser[2].subestado = 0; 
-    ser[2].estado2 = 1;  
-    ser[2].subestado2 = 0; 
-
     ser[2].w = 70; 
     ser[2].h = 70; 
     ser[2].volumen = 100; 
     ser[2].dibujo = 2; 
     ser[2].fotograma = 1; 
-    ser[2].linea = 2; 
+    ser[2].linea = 2;
 
-    ser[2].vidamax = 10; 
-    ser[2].accion3 = 0; 
+	// Physics
     ser[2].masa = 10; 
-    ser[2].potencia = 10;
-
-    ser[2].accion = 0; 
     ser[2].etereo = 1; 
-    ser[2].potencia = 40; 
-    ser[2].vida = 10;
-
+    ser[2].vida = 1;
     direccion2 = 0;
+
     imagen[2].src = 'recursos/2.png';
+	//#endregion
 
-    // terreno piso
-
+    //#region Terrain Floor
     ser[3].x = -50; 
-    ser[3].y = 650; 
-    //ser[3].y=550; 
-    ser[3].estado = 1; 
-    ser[3].subestado = 0; 
-
-    ser[3].w = 480; 
-    ser[3].h = 100; 
-    ser[3].volumen = 1000; 
-    ser[3].dibujo = 3; 
-    ser[3].fotograma = 1; 
-    ser[3].linea = 1; 
-
-    ser[3].vidamax = 10; 
-    ser[3].accion3 = 0; 
-    ser[3].masa = 100; 
-    ser[3].potencia = 10;
-
-    ser[3].accion = 0; 
-    ser[3].etereo = 2; 
-    ser[3].potencia = 40; 
-    ser[3].vida = 10;
-
-    imagen[3].src = 'recursos/3.png';
-
     ser[4].x = 400; 
-    ser[4].y = 650; 
-    ser[4].estado = 1;  
-    ser[4].subestado = 0; 
-
-    ser[4].w = 480; 
-    ser[4].h = 100; 
-    ser[4].volumen = 1000; 
-    ser[4].dibujo = 3; 
-    ser[4].fotograma = 1; 
-    ser[4].linea = 1; 
-
-    ser[4].vidamax = 10; 
-    ser[4].accion3 = 0; 
-    ser[4].masa = 100; 
-    ser[4].potencia = 10;
-
-    ser[4].accion = 0; 
-    ser[4].etereo = 2; 
-    ser[4].potencia = 40; 
-    ser[4].vida = 10;
-    imagen[3].src = 'recursos/3.png';
-
     ser[5].x = 850; 
-    ser[5].y = 650; 
-    ser[5].estado = 1;  
-    ser[5].subestado = 0; 
+    
+	// All
+	for (let i = 3; i < 6; i++) {
+		ser[i].y = 650;
+		ser[i].w = 480; 
+    	ser[i].h = 100; 
+		ser[i].volumen = 1000; 
+		ser[i].dibujo = 3; 
+		ser[i].linea = 1; 
+		ser[i].fotograma = 1; 
+		ser[i].masa = 100; 
+		ser[i].etereo = 2; 
+    	ser[i].vida = 10;
+	}
 
-    ser[5].w = 480; 
-    ser[5].h = 100; 
-    ser[5].volumen = 1000; 
-    ser[5].dibujo = 3; 
-    ser[5].fotograma = 1; 
-    ser[5].linea = 1; 
-
-    ser[5].vidamax = 10; 
-    ser[5].accion3 = 0; 
-    ser[5].masa = 100; 
-    ser[5].potencia = 10;
-
-    ser[5].accion = 0; 
-    ser[5].etereo = 2; 
-    ser[5].potencia = 40; 
-    ser[5].vida = 10;
     imagen[3].src = 'recursos/3.png';
+	//#endregion
 
-	// K.O.
+	//#region K.O.
     ser[6].x = 400; 
 	ser[6].y = 200; 
-	ser[6].estado = 1;  
-	ser[6].subestado = 0;
-
-    ser[6].w = 480; 
-	ser[6].h = 100; 
 	ser[6].volumen = 1000; 
 	ser[6].dibujo = 10; 
 	ser[6].fotograma = 1; 
 	ser[6].linea = 1;
-
-    ser[6].vidamax = 10; 
-	ser[6].accion3 = 0; 
-	ser[6].masa = 100; 
-	ser[6].potencia = 10;
-
-    ser[6].accion = 0; 
-	ser[6].etereo = 0; 
-	ser[6].potencia = 40; 
-	ser[6].vida = 10;
     imagen[10].src = 'recursos/10.png';
+	//#endregion
 
 	// platform
-    ser[7].x = 1300; 
+
+	ser[7].x = 1300; 
 	ser[7].y = 400; 
 	ser[7].estado = 1;  
 	ser[7].subestado = 0;
-
     ser[7].w = 480; 
 	ser[7].h = 100; 
 	ser[7].volumen = 1000; 
-	ser[7].dibujo = 3; 
+	ser[7].dibujo = 1; 
 	ser[7].fotograma = 1; 
 	ser[7].linea = 1;
-
     ser[7].vidamax = 10; 
 	ser[7].accion3 = 0; 
 	ser[7].masa = 100; 
 	ser[7].potencia = 10;
-
     ser[7].accion = 0; 
 	ser[7].etereo = 2; 
 	ser[7].potencia = 40; 
 	ser[7].vida = 10;
-    imagen[3].src = 'recursos/3.png';
+    imagen[3].src = 'recursos/1.png'; 
 
-	// life and ki
-    ser[8].x = 0; 
-	ser[8].y = 20; 
-	ser[8].estado = 1;  
-	ser[8].subestado = 0;
 
-    ser[8].w = 480; 
-	ser[8].h = 100; 
-	ser[8].volumen = 500; 
-	ser[8].dibujo = 4; 
-	ser[8].fotograma = 1; 
-	ser[8].linea = 1;
+	//#region Life and Ki
+	// Life
+	ser[8].y = ser[10].y = 20;
 
-    ser[8].vidamax = 10; 
-	ser[8].accion3 = 0; 
-	ser[8].masa = 100; 
-	ser[8].potencia = 10;
+	ser[8].dibujo = ser[10].dibujo = 4;
 
-    ser[8].accion = 0; 
-	ser[8].etereo = 0; 
-	ser[8].potencia = 40; 
-	ser[8].vida = 10;
-    imagen[4].src = 'recursos/4.png';
+	// Ki
+	ser[9].y = ser[11].y = 50;
+	ser[9].dibujo = ser[11].dibujo = 5;
 
-    ser[9].x = 0; 
-	ser[9].y = 50; 
-	ser[9].estado = 1;  
-	ser[9].subestado = 0;
+	for (let i = 8; i < 10; i++) ser[i].x = 0;
+	
+	for (let i = 10; i < 12; i++) ser[i].x = 750;
 
-    ser[9].w = 480; 
-	ser[9].h = 100; 
-	ser[9].volumen = 500; 
-	ser[9].dibujo = 5; 
-	ser[9].fotograma = 1; 
-	ser[9].linea = 1;
+	// All
+	for (let i = 8; i < 12; i++) {
+		ser[i].fotograma = 1;
+		ser[i].linea = 1;
+	}
 
-    ser[9].vidamax = 10; 
-	ser[9].accion3 = 0; 
-	ser[9].masa = 100; 
-	ser[9].potencia = 10;
-
-    ser[9].accion = 0; 
-	ser[9].etereo = 0; 
-	ser[9].potencia = 40; 
-	ser[9].vida = 10;
+	imagen[4].src = 'recursos/4.png';
     imagen[5].src = 'recursos/5.png';
 
-    ser[10].x = 750; 
-	ser[10].y = 20; 
-	ser[10].estado = 1;  
-	ser[10].subestado = 0;
+	//#endregion
 
-    ser[10].w = 480; 
-	ser[10].h = 100; 
-	ser[10].volumen = 500; 
-	ser[10].dibujo = 4; 
-	ser[10].fotograma = 1; 
-	ser[10].linea = 1;
+    //#region Ki Power Payer 1, 2
 
-    ser[10].vidamax = 10; 
-	ser[10].accion3 = 0; 
-	ser[10].masa = 100; 
-	ser[10].potencia = 10;
+	for (let i = 12; i < 22; i++) {
+		ser[i].vida = 0;
+		ser[i].w = ser[i].h = 50; 
+		ser[i].dibujo = 6; 
+		ser[i].linea = 1;
+		ser[i].fotograma = 1; 
+		ser[i].volumen = 500; 
+	}
 
-    ser[10].accion = 0; 
-	ser[10].etereo = 0; 
-	ser[10].potencia = 40; 
-	ser[10].vida = 10;
-    imagen[4].src = 'recursos/4.png';
+	imagen[6].src = 'recursos/6.png';
 
-    ser[11].x = 750; 
-	ser[11].y = 50; 
-	ser[11].estado = 1;  
-	ser[11].subestado = 0;
-
-    ser[11].w = 480; 
-	ser[11].h = 100; 
-	ser[11].volumen = 500; 
-	ser[11].dibujo = 5; 
-	ser[11].fotograma = 1; 
-	ser[11].linea = 1;
-
-    ser[11].vidamax = 10; 
-	ser[11].accion3 = 0; 
-	ser[11].masa = 100; 
-	ser[11].potencia = 10;
-
-    ser[11].accion = 0; 
-	ser[11].etereo = 0; 
-	ser[11].potencia = 40; 
-	ser[11].vida = 10;
-    imagen[5].src = 'recursos/5.png';
-
-    // bolas de ki jugador1
-    ser[12].x = 750; 
-    ser[12].y = 50; 
-    ser[12].estado = 1;  
-    ser[12].subestado = 0; 
-
-    ser[12].w = 50; 
-    ser[12].h = 50; 
-    ser[12].volumen = 500; 
-    ser[12].dibujo = 6; 
-    ser[12].fotograma = 1; 
-    ser[12].linea = 1; 
-
-    ser[12].vidamax = 10; 
-    ser[12].accion3 = 0; 
-    ser[12].masa = 100; 
-    ser[12].potencia = 10;
-
-    ser[12].accion = 1; 
-    ser[12].etereo = 0; 
-    ser[12].potencia = 40; 
-    ser[12].vida = 0;
-
-    imagen[6].src = 'recursos/6.1.png';
-
-    ser[13].x = 650; 
-    ser[13].y = 50; 
-    ser[13].estado = 1;  
-    ser[13].subestado = 0; 
-
-    ser[13].w = 50; 
-    ser[13].h = 50; 
-    ser[13].volumen = 500; 
-    ser[13].dibujo = 6; 
-    ser[13].fotograma = 1; 
-    ser[13].linea = 1; 
-
-    ser[13].vidamax = 10; 
-    ser[13].accion3 = 0; 
-    ser[13].masa = 100; 
-    ser[13].potencia = 10;
-
-    ser[13].accion = 1; 
-    ser[13].etereo = 0; 
-    ser[13].potencia = 40; 
-    ser[13].vida = 0;
-
-    imagen[6].src = 'recursos/6.1.png';
-
-    ser[14].x = 550; 
-    ser[14].y = 50; 
-    ser[14].estado = 1;  
-    ser[14].subestado = 0; 
-
-    ser[14].w = 50; 
-    ser[14].h = 50; 
-    ser[14].volumen = 500; 
-    ser[14].dibujo = 6; 
-    ser[14].fotograma = 1; 
-    ser[14].linea = 1;
-
-    ser[14].vidamax = 10; 
-    ser[14].accion3 = 0; 
-    ser[14].masa = 100; 
-    ser[14].potencia = 10;
-
-    ser[14].accion = 1; 
-    ser[14].etereo = 0; 
-    ser[14].potencia = 40; 
-    ser[14].vida = 0;
-
-    imagen[6].src = 'recursos/6.png';
-
-    ser[15].x = 750; 
-    ser[15].y = 250; 
-    ser[15].estado = 1;  
-    ser[15].subestado = 0; 
-
-    ser[15].w = 50; 
-    ser[15].h = 50; 
-    ser[15].volumen = 500; 
-    ser[15].dibujo = 6; 
-    ser[15].fotograma = 1; 
-    ser[15].linea = 1; 
-
-    ser[15].vidamax = 10; 
-    ser[15].accion3 = 0; 
-    ser[15].masa = 100; 
-    ser[15].potencia = 10;
-
-    ser[15].accion = 1; 
-    ser[15].etereo = 0; 
-    ser[15].potencia = 40; 
-    ser[15].vida = 0;
-
-    imagen[6].src = 'recursos/6.1.png';
-
-    ser[16].x = 650; 
-	ser[16].y = 250;  
-	ser[16].estado = 1;  
-	ser[16].subestado = 0;
-
-    ser[16].w = 50; 
-	ser[16].h = 50;  
-	ser[16].volumen = 500; 
-	ser[16].dibujo = 6;  
-	ser[16].fotograma = 1; 
-	ser[16].linea = 1;
-
-    ser[16].vidamax = 10; 
-	ser[16].accion3 = 0; 
-	ser[16].masa = 100; 
-	ser[16].potencia = 10;
-
-    ser[16].accion = 1; 
-	ser[16].etereo = 0; 
-	ser[16].potencia = 40; 
-	ser[16].vida = 0;
-    imagen[6].src = 'recursos/6.1.png';
-
-    // bolas de ki jugador2
-
-    ser[17].x = 550; 
-	ser[17].y = 0; 
-	ser[17].estado = 1;  
-	ser[17].subestado = 0;
-
-    ser[17].w = 50; 
-	ser[17].h = 50; 
-	ser[17].volumen = 500; 
-	ser[17].dibujo = 6; 
-	ser[17].fotograma = 1; 
-	ser[17].linea = 1;
-
-    ser[17].vidamax = 10; 
-	ser[17].accion3 = 0; 
-	ser[17].masa = 100; 
-	ser[17].potencia = 10;
-
-    ser[17].accion = 1; 
-	ser[17].etereo = 0; 
-	ser[17].potencia = 40; 
-	ser[17].vida = 0;
-    imagen[6].src = 'recursos/6.png';
-
-    ser[18].x = 600; 
-	ser[18].y = 0; 
-	ser[18].estado = 1;  
-	ser[18].subestado = 0;
-
-    ser[18].w = 50; 
-	ser[18].h = 50; 
-	ser[18].volumen = 500; 
-	ser[18].dibujo = 6; 
-	ser[18].fotograma = 1; 
-	ser[18].linea = 1;
-
-    ser[18].vidamax = 10; 
-	ser[18].accion3 = 0; 
-	ser[18].masa = 100; 
-	ser[18].potencia = 10;
-
-    ser[18].accion = 1; 
-	ser[18].etereo = 0; 
-	ser[18].potencia = 40; 
-	ser[18].vida = 0;
-    imagen[6].src = 'recursos/6.png';
-
-    ser[19].x = 650; 
-	ser[19].y = 0; 
-	ser[19].estado = 1;  
-	ser[19].subestado = 0;
-
-    ser[19].w = 50; 
-	ser[19].h = 50; 
-	ser[19].volumen = 500; 
-	ser[19].dibujo = 6; 
-	ser[19].fotograma = 1; 
-	ser[19].linea = 1;
-
-    ser[19].vidamax = 10; 
-	ser[19].accion3 = 0; 
-	ser[19].masa = 100; 
-	ser[19].potencia = 10;
-
-    ser[19].accion = 1; 
-	ser[19].etereo = 0; 
-	ser[19].potencia = 40; 
-	ser[19].vida = 0;
-    imagen[6].src = 'recursos/6.png';
-
-    ser[20].x = 700; 
-	ser[20].y = 0; 
-	ser[20].estado = 1;  
-	ser[20].subestado = 0;
-
-    ser[20].w = 50; 
-	ser[20].h = 50; 
-	ser[20].volumen = 500; 
-	ser[20].dibujo = 6; 
-	ser[20].fotograma = 1; 
-	ser[20].linea = 1;
-
-    ser[20].vidamax = 10; 
-	ser[20].accion3 = 0; 
-	ser[20].masa = 100; 
-	ser[20].potencia = 10;
-
-    ser[20].accion = 1; 
-	ser[20].etereo = 0; 
-	ser[20].potencia = 40; 
-	ser[20].vida = 0;
-	
-    imagen[6].src = 'recursos/6.png';
-
-    ser[21].x = 750; 
-	ser[21].y = 0; 
-	ser[21].estado = 1;  
-	ser[21].subestado = 0;
-
-    ser[21].w = 50; 
-	ser[21].h = 50; 
-	ser[21].volumen = 500; 
-	ser[21].dibujo = 6; 
-	ser[21].fotograma = 1; 
-	ser[21].linea = 1;
-
-    ser[21].vidamax = 10; 
-	ser[21].accion3 = 0; 
-	ser[21].masa = 100; 
-	ser[21].potencia = 10;
-
-    ser[21].accion = 1;
-	ser[21].etereo = 0; 
-	ser[21].potencia = 40; 
-	ser[21].vida = 0;
-	
-    imagen[6].src = 'recursos/6.png';
+	//#endregion
 
     //#region Hits
 
