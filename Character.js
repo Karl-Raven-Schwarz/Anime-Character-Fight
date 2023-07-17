@@ -1,5 +1,5 @@
 class Character {
-	constructor(leftKey, upKey, rightKey, downKey, damage, spellDamage, speed, hitKey, kiKey) {
+	constructor(leftKey, rightKey, upKey, downKey, hitKey, spellKey, damage, spellDamage, speed) {
         // Stats Const
 		this.Life = 10;
 		this.Ki = 100;
@@ -16,15 +16,28 @@ class Character {
 		this.DownKey = downKey;
 
 		this.HitKey = hitKey;
-		this.KiKey = kiKey;
+		this.SpellKey = spellKey;
 	}
 
-	SetPhysics(line, x, y, isEthereal) {
+	SetPhysics(line, x, y, isEthereal, impulseX, impulseY, mass) {
 		this.Volume = 100;
 		this.Line = line;
 		this.X = x;
 		this.Y = y;
 		this.IsEthereal = isEthereal;
+		this.ImpulseX = impulseX;
+		this.ImpulseY = impulseY;
+		this.Mass = mass;
+	}
+
+	SetAnimator(subState, picture, frame, states, address) {
+		this.SubStates = subState;
+		this.Picture = picture;
+		this.Frame = frame;
+		this.States = states;
+		this.Address = address;
+		this.Height = height;
+		this.Width = width;
 	}
 
 	Draw(ctx) {
@@ -38,11 +51,11 @@ class Character {
 
 	Move() {
 		this.x = this.X + this.ImpulseX;
-		this.y = this.Y + this.impulsoy;
+		this.y = this.Y + this.ImpulseY;
 
-		if (this.impulsox > 0) this.impulsox = this.impulsox - 1;
-		if (this.impulsox < 0) this.impulsox = this.impulsox + 1;
-		if (this.impulsoy > 0) this.impulsoy = this.impulsoy - 1;
-		if (this.impulsoy < 0) this.impulsoy = this.impulsoy + 1;
+		if (this.ImpulseX > 0) this.ImpulseX -= 1;
+		if (this.ImpulseX < 0) this.ImpulseX += 1;
+		if (this.ImpulseY > 0) this.ImpulseY -= 1;
+		if (this.ImpulseY < 0) this.ImpulseY += 1;
 	}
 }

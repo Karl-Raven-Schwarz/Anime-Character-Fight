@@ -1,15 +1,16 @@
+console.log(111111111111111111111111111111111111111111111)
 var Images = new Array();
 
 for (let i = 1; i < 8; i++) {
     Images[i] = new Image(); 
     Images[i].src = './resources/1.png';
 }
-//
+
 Images[8] = new Image(); Images[8].src = './resources/8.png';
 Images[9] = new Image(); Images[9].src = './resources/9.png';
 Images[10] = new Image(); Images[10].src = './resources/10.png';
 
-Images[11] = new Image(); Images[10].src = './resources/ki-power/1.png';
+Images[11] = new Image(); Images[10].src = './resources/spells/1.png';
 
 function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dibujo,
 	dibujomax, vida, vidamax, accion, accionmax, accion2, accion2max, accion3, accion3max, accionss, avance, avance2,
@@ -254,76 +255,36 @@ function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dib
 var ser = new Array();
 for (let i = 0; i < 31; i++) ser[i] = new ente(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-/*
-ser[1].x = 0; 
-ser[1].y = 1000; 
-ser[1].xmax = 0; 
-ser[1].ymax = 1000;	
-ser[1].w = 1; 
-ser[1].h = 1; 
-
-ser[1].volumen = 1; 
-ser[1].volumenmax = 1; 
-ser[1].fotograma = 1; 
-ser[1].fotogramamax = 1; 
-ser[1].dibujo = 1; 
-ser[1].dibujomax = 1;
-ser[1].vida = 100; 
-ser[1].vidamax = 100; 
-ser[1].accion = 0; 
-ser[1].accionmax = 0; 
-ser[1].accion2 = 0; 
-ser[1].accion2max = 0;	
-ser[1].accion3 = 0;
-ser[1].accion3max = 0; 
-ser[1].accionss = 0;
-ser[1].avance = 0;	
-ser[1].avance2 = 0; 
-ser[1].avance3 = 0; 
-ser[1].poder = 30; 
-ser[1].potencia = 0; 
-ser[1].etereo = 0; 
-*/
-/*
-ser[1].estado = 1;	
-ser[1].estado2 = 1; 
-ser[1].estado3 = 1; 
-ser[1].estado4 = 1; 
-*/
-
-//ser[1].masa = 1; 
 ser[1].impulsox = 0; 
 ser[1].impulsoy = 0;	
 
 
 class Game {
-	constructor(keyHit, keyKi) {
-	  	this.Scene = 3;
-		this.Ki = 100;
-		this.KeyHit = keyHit;
-		this.KeyKi = keyKi;
+	constructor() {
+		this.Scene = 2;
+		this.Characters = [];
+		this.CountScene = 0;
 	}
-  
+
 	Print() {
-		console.log(this.Scene, this.Ki, this.KeyHit, this.KeyKi);
+		console.log(this.Scene);
+	}
+
+	AddPlayer(newPlayer) {
+		this.Characters.push(newPlayer);
 	}
 }
+const engine = new Engine();
+var game = new Game(1,2);
+game.Print();
 
-var myGame = new Game(1,2);
-myGame.Print();
+game.AddPlayer(new Character(...engine.GetPlayer1Keys(),10, 20, 15));
+game.AddPlayer(new Character(...engine.GetPlayer2Keys(),15, 20, 10));
 
 // Variables
-var contador_avance = 0;
 
 // scene
-var pantalla_juego = 3;
-var pantalla_juego = 2;
 
-var nivel_juego = 0;
-
-
-var aleatorio = 0;
-var aleatorio2 = 0;
 var direccion1 = 0;
 var direccion2 = 0;
 var contador_golpe1 = 0;
@@ -338,7 +299,6 @@ var direccionx = 0;
 var direcciony = 0;
 
 var cantidad_seres = 30;
-var cantidad_seresmax = 50;
 
 var vida1 = 100;
 var vida2 = 100;
@@ -347,7 +307,6 @@ var ki2 = 100;
 
 //Opciones
 var gravedad = 20;
-
 
 var p1_bolaenergia = 1;
 var p1_vel = 15;
@@ -361,7 +320,6 @@ var p2_vel = 15;
 var p2_salto = 35;
 var p2_podergolpe = 2;
 var p2_poderbola = 10;
-
 
 var cantidad_espejismos = 2;
 
@@ -591,9 +549,9 @@ function GenerateGame() {
 }
 
 function CoverLogic() {
-	contador_avance = contador_avance + 1;
+	game.CountScene += 1;
 
-	if (contador_avance == 2) {
+	if (game.CountScene == 2) {
 		Images[1].src = './resources/1070.png'; 
 		espejismo[1].Drawing = 1; 
 		espejismo[1].Frame = 1; 
@@ -618,7 +576,7 @@ function CoverLogic() {
 
 	}
 
-	if (contador_avance > 2) {
+	if (game.CountScene > 2) {
 
 		if (presiona[tecla_enter] && cual_portada == 0 && presiona_portada == 0) {
 			presiona_portada = 1;
@@ -669,14 +627,13 @@ function CoverLogic() {
 		if (presiona[tecla_enter] && cual_portada == 1 && presiona_portada==0) {
 			cargar();	
 			document.getElementById('sonidofx').volume = 0.3; 
-			pantalla_juego = 3;
+			game.Scene = 3;
 		}
 		
 		if (presiona[tecla_enter] && cual_portada == 2 && presiona_portada==0) {
 			nave_vidamaxbase = 100;
 			document.getElementById('sonidofx').volume = 0.3;
-			nivel_juego = 1;	
-			pantalla_juego = 3;
+			game.Scene = 3;
 		}	
 
 		if (presiona[tecla_enter] == 0 && presiona[40] != 1 && presiona[tecla_abajo] != 1 
@@ -705,17 +662,17 @@ function GenerateCover() {
 function bucle() {
     setTimeout(bucle,40);
     
-    if (pantalla_juego == 1) {
+    if (game.Scene == 1) {
         jugar();
         GenerateGame(); 
     }
 
-    if (pantalla_juego == 2) {
+    if (game.Scene == 2) {
         CoverLogic(); 
         GenerateCover(); 
     }
     
-    if (pantalla_juego == 3) CreateScene();
+    if (game.Scene == 3) CreateScene();
     
 }
 
@@ -2275,32 +2232,30 @@ function control_naves () {
 	}
 	
 	// saltar
-	if ((presiona[tecla_arriba1] && salto_potencia1>0)) {
-		ser[1].estado2=1; 
-		ser[1].subestado2=5;
+	if ((presiona[tecla_arriba1] && salto_potencia1 > 0)) {
+		ser[1].estado2 = 1; 
+		ser[1].subestado2 = 5;
 	}
 	
-	if ((presiona[tecla_arriba2] && salto_potencia2>0)) {
-		ser[2].estado2=1; 
-		ser[2].subestado2=5;
+	if ((presiona[tecla_arriba2] && salto_potencia2 > 0)) {
+		ser[2].estado2 = 1; 
+		ser[2].subestado2 = 5;
 	}
 	
 	// lanzar ki
-	
-	if (presiona[tecla_magia1] && ki1 > 5 && contador_bola1==0 && (ser[1].subestado==0 || ser[1].estado==4  || ser[1].estado==2)) {
+	if (presiona[tecla_magia1] && ki1 > 5 && contador_bola1 == 0 && (ser[1].subestado == 0 || ser[1].estado == 4  || ser[1].estado == 2)) {
 		ser[1].estado = 11; 
 		ser[1].subestado = 7;	
 		contador_bola1	= 1;	
 	}
 	
-	if (presiona[tecla_magia2] && ki2 > 5 && contador_bola2==0 && (ser[2].subestado==0 || ser[2].estado==4  || ser[2].estado==2)) {
+	if (presiona[tecla_magia2] && ki2 > 5 && contador_bola2 == 0 && (ser[2].subestado == 0 || ser[2].estado == 4  || ser[2].estado == 2)) {
 		ser[2].estado = 11; 
 		ser[2].subestado = 7;	
 		contador_bola2	= 1;	
 	}	
 }
 
-console.log('control naves')
 
 function CreateScene() {
     contador = 1;
@@ -2444,7 +2399,7 @@ function CreateScene() {
 	}
 
 	ser[20].dibujo = ser[21].dibujo = 11;
-	Images[11].src = './resources/ki-power/3.png';
+	Images[11].src = './resources/spells/3.png';
 	Images[6].src = './resources/6.png';
 
 	//#endregion
@@ -2568,5 +2523,5 @@ function CreateScene() {
 
 	//#endregion
 
-    pantalla_juego = 1;
+    game.Scene = 1;
 }
