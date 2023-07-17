@@ -1,15 +1,15 @@
-var imagen = new Array();
+var Images = new Array();
 
 for (let i = 1; i < 8; i++) {
-    imagen[i] = new Image(); 
-    imagen[i].src = 'recursos/1.png';
+    Images[i] = new Image(); 
+    Images[i].src = './resources/1.png';
 }
+//
+Images[8] = new Image(); Images[8].src = './resources/8.png';
+Images[9] = new Image(); Images[9].src = './resources/9.png';
+Images[10] = new Image(); Images[10].src = './resources/10.png';
 
-imagen[8] = new Image(); imagen[8].src = 'recursos/8.png';
-imagen[9] = new Image(); imagen[9].src = 'recursos/9.png';
-imagen[10] = new Image(); imagen[10].src = 'recursos/10.png';
-
-console.log('imagenes')
+Images[11] = new Image(); Images[10].src = './resources/ki-power/1.png';
 
 function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dibujo,
 	dibujomax, vida, vidamax, accion, accionmax, accion2, accion2max, accion3, accion3max, accionss, avance, avance2,
@@ -241,11 +241,11 @@ function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dib
 		if (this.impulsoy < 0) this.impulsoy = this.impulsoy + 1;
 	}
 
-	this.dibuja = function(ctx) {
+	this.Draw = function(ctx) {
 		cordenadax_dibuja = (this.fotograma - 1) * this.volumen;
 		cordenaday_dibuja = (this.linea - 1) * this.volumen;
 		ctx.drawImage(
-			imagen[this.dibujo], cordenadax_dibuja, cordenaday_dibuja, 
+			Images[this.dibujo], cordenadax_dibuja, cordenaday_dibuja, 
 			this.volumen, this.volumen, this.x, this.y, this.volumen, this.volumen
 		);
 	}
@@ -254,13 +254,14 @@ function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dib
 var ser = new Array();
 for (let i = 0; i < 31; i++) ser[i] = new ente(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-
+/*
 ser[1].x = 0; 
 ser[1].y = 1000; 
 ser[1].xmax = 0; 
 ser[1].ymax = 1000;	
 ser[1].w = 1; 
 ser[1].h = 1; 
+
 ser[1].volumen = 1; 
 ser[1].volumenmax = 1; 
 ser[1].fotograma = 1; 
@@ -282,43 +283,18 @@ ser[1].avance3 = 0;
 ser[1].poder = 30; 
 ser[1].potencia = 0; 
 ser[1].etereo = 0; 
-
+*/
+/*
 ser[1].estado = 1;	
 ser[1].estado2 = 1; 
 ser[1].estado3 = 1; 
 ser[1].estado4 = 1; 
+*/
 
-ser[1].masa = 1; 
+//ser[1].masa = 1; 
 ser[1].impulsox = 0; 
 ser[1].impulsoy = 0;	
 
-class Mirror {
-	constructor(x, y, life, animation, volume, frame, drawing) {
-		this.X = x;
-		this.Y = y;
-		this.Life = life;
-		this.Animation = animation;
-		this.Volume = volume;
-		this.Frame = frame;
-		this.Drawing = drawing;
-	}
-  
-	Draw(ctx) {
-		if (this.Frame > 0 && this.Frame < 101) {
-			for (let i = 0, j = 0; i < 10; i++, j++) {
-				if (this.Frame > i * 10 && this.Frame < j) {
-					cordenaday_dibuja = i * this.Volume; 
-					cordenadax_dibuja = (this.Frame - 1) * this.Volume;
-				}	
-			}
-		}
-		cordenadax_dibuja = (this.Frame - 1) * this.Volume;
-		ctx.drawImage(imagen[this.Drawing], cordenadax_dibuja, cordenaday_dibuja, this.Volume, this.Volume, this.X, this.Y, this.Volume, this.Volume);
-	}
-}
-
-
-console.log('pintar portada')
 
 class Game {
 	constructor(keyHit, keyKi) {
@@ -332,30 +308,10 @@ class Game {
 		console.log(this.Scene, this.Ki, this.KeyHit, this.KeyKi);
 	}
 }
-  
+
 var myGame = new Game(1,2);
 myGame.Print();
-  
-class Character {
-	constructor(hitKey, kiKey) {
-		this.Life = 10;
-		this.Ki = 100;
 
-		// keys
-		this.LeftKey = leftKey;
-		this.UpKey = upKey;
-		this.RightKey = rightKey;
-		this.DownKey = downKey;
-
-		this.HitKey = hitKey;
-		this.KiKey = kiKey;
-	}
-
-	Print() {
-		console.log("");
-	}
-}
-  
 // Variables
 var contador_avance = 0;
 
@@ -385,7 +341,6 @@ var cantidad_seres = 30;
 var cantidad_seresmax = 50;
 
 var vida1 = 100;
-//--------------------------------------------------------------------------------
 var vida2 = 100;
 var ki1 = 100;
 var ki2 = 100;
@@ -395,7 +350,7 @@ var gravedad = 20;
 
 
 var p1_bolaenergia = 1;
-var p1_vel = 20;
+var p1_vel = 15;
 var p1_salto = 35;
 var p1_podergolpe = 2;
 var p1_poderbola = 10;
@@ -409,20 +364,12 @@ var p2_poderbola = 10;
 
 
 var cantidad_espejismos = 2;
-var cantidad_espejismosmax = 20;
 
 var espejismo = new Array();
-for (let i = 1; i < 21; i++) espejismo[i] = new Mirror(0,0,0,0,0,0,0);
+for (let i = 1; i < 21; i++) espejismo[i] = new Mirror(0, 0, 0, 0, 0, 0, 0);
 
 var cual_portada = 0;
 var presiona_portada = 0;
-
-// mensajes
-var cantidad_mensajes = 21;
-var cantidad_mensajesmax = 21;
-
-var mensaje = new Array();
-for (let i = 1; i < 4; i++) mensaje[i] = new mensajex(0,0,0,0,0,0);
 
 // dibujo
 var cordenadax_dibuja = 0;
@@ -442,34 +389,15 @@ var tecla_derecha = 39;
 var tecla_abajo = 40;
 
 var tecla_a = 65;
-var tecla_b = 66;
-var tecla_c = 67;
 var tecla_d = 68;
+var tecla_s = 83;
+var tecla_w = 87;
 
 var tecla_e = 69;
 var tecla_f = 70;
 
 var tecla_g = 71;
 var tecla_h = 72;
-
-var tecla_i = 73;
-var tecla_j = 74;
-var tecla_k = 75;
-var tecla_l = 76;
-var tecla_m = 77;
-var tecla_n = 78;
-var tecla_o = 79;
-var tecla_p = 80;
-var tecla_q = 81;
-var tecla_r = 82;
-var tecla_s = 83;
-var tecla_t = 84;
-var tecla_u = 85;
-var tecla_v = 86;
-var tecla_w = 87;
-var tecla_x = 88;
-var tecla_y = 89;
-var tecla_z = 90;
 
 var tecla_enter = 13;
 var tecla_espacio = 32;
@@ -485,9 +413,6 @@ var tecla_disparo2 = 103;
 var tecla_magia1 = tecla_g;
 //var tecla_magia2 = tecla_n;
 var tecla_magia2 = 104;
-
-var tecla_inventario = tecla_enter;
-var tecla_salto = tecla_j;
 
 
 var tecla_izquierda1 = tecla_a;
@@ -509,9 +434,6 @@ var musica_ente = 0;
 var tocar1; 
 var sonido_musica1 = "sonidos/musica1.wav"; 
 console.log('variables')
-
-
-function mensajex (x, y, tam, vida, mensaj, tam) { }
 
 function disparaki (player, address) {
 	if (player == 1) {
@@ -615,8 +537,6 @@ var lastPress = null;
 
 // Disparador
 function init() {
-	console.log('init');
-
 	tocar1 = document.getElementById("sonidofx");
     juego = document.getElementById('iijuego');
     ctx = juego.getContext('2d');  
@@ -638,7 +558,7 @@ function GenerateGame() {
 	ctx.fillStyle = '#FE84DD';
 	ctx.fillRect(0, 0, juego.width, juego.height);
 	var gameObjects = [24, 8, 9, 10, 11, 25, 26, 27, 3, 4, 5];
-	gameObjects.map(item => ser[item].dibuja(ctx));
+	gameObjects.map(item => ser[item].Draw(ctx));
 
 	// generate background: ser[24].dibuja(ctx);
 	// generate player1 bar life: ser[8].dibuja(ctx);
@@ -651,30 +571,30 @@ function GenerateGame() {
 	//ser[10].dibuja(ctx);
 	//ser[11].dibuja(ctx);
 	// generate floor: ser[3 : 5].dibuja(ctx);
-	
+
 	contador = 11;
 	while (contador < 21) {
 		contador += 1;
-		if (ser[contador].vida > 0) ser[contador].dibuja(ctx);
-	}	
+		if (ser[contador].vida > 0) ser[contador].Draw(ctx);
+	}
 
 	//generate players
-	ser[1].dibuja(ctx);
-	ser[2].dibuja(ctx);
+	ser[1].Draw(ctx);
+	ser[2].Draw(ctx);
 
 	// generate hits
-	if (ser[22].vida > 0) ser[22].dibuja(ctx);
-	if (ser[23].vida > 0) ser[23].dibuja(ctx);
+	if (ser[22].vida > 0) ser[22].Draw(ctx);
+	if (ser[23].vida > 0) ser[23].Draw(ctx);
 
 	// generate game over title
-	if (vida1 < 6 || vida2 < 6) ser[6].dibuja(ctx);
+	if (vida1 < 6 || vida2 < 6) ser[6].Draw(ctx);
 }
 
 function CoverLogic() {
 	contador_avance = contador_avance + 1;
 
 	if (contador_avance == 2) {
-		imagen[1].src = 'recursos/1070.png'; 
+		Images[1].src = './resources/1070.png'; 
 		espejismo[1].Drawing = 1; 
 		espejismo[1].Frame = 1; 
 		espejismo[1].Volume = 1280; 
@@ -686,7 +606,7 @@ function CoverLogic() {
 		valor_guardado = parseFloat(valor_guardado); 
 		nave_vidamaxbase = valor_guardado;
 
-		imagen[2].src = 'recursos/1071.png'; 	
+		Images[2].src = './resources/1071.png'; 	
 		espejismo[2].Drawing = 2; 
 		espejismo[2].Volume = 500; 
 		espejismo[2].Life = 0; 
@@ -779,7 +699,7 @@ function GenerateCover() {
 
 	ctx.font = "100px Arial";
 	ctx.fillStyle = '#fff000';
-   	ctx.fillText('Anime Character Fight', 40, 247)		
+	ctx.fillText('Anime Character Fight', 40, 247)		
 }
 
 function bucle() {
@@ -842,8 +762,8 @@ console.log('game')
 
 function jugar() {
 	// Movimientos 
-	if (ser[1].subestado==0) ser[1].estado=1;
-	if (ser[2].subestado==0) ser[2].estado=1;
+	if (ser[1].subestado == 0) ser[1].estado = 1;
+	if (ser[2].subestado == 0) ser[2].estado = 1;
 
 	ser[1].impulsoy = gravedad;
 	ser[2].impulsoy = gravedad;
@@ -860,7 +780,7 @@ function jugar() {
 		if (ser[contador].Clash(ser[2]) == 1 && ser[2].estado != 12 && ser[contador].vida > 0)  {
 			ser[2].estado = 12; 
 			ser[2].subestado = 5; 
-			vida2 = vida2-p1_poderbola; 
+			vida2 = vida2 - p1_poderbola; 
 			ser[contador].vida = 0;
 		}
 	}	
@@ -882,28 +802,33 @@ function jugar() {
 	}	
 		
 	// Golpes
-	if (ser[22].vida>0 && ser[22].accion==1) {
+	if (ser[22].vida > 0 && ser[22].accion == 1) {
 		ser[22].x = ser[22].x + 5; 
 		ser[22].vida = ser[22].vida-1;
 	}
+
 	if (ser[22].vida>0 && ser[22].accion==2) {
 		ser[22].x = ser[22].x - 5; 
 		ser[22].vida = ser[22].vida-1;
 	}
+
 	if (ser[22].Clash(ser[2]) == 1 && ser[2].estado != 12 && ser[22].vida > 0) {
 		ser[2].estado = 12; 
 		ser[2].subestado = 5; 
 		vida2 = vida2 - p1_podergolpe; 
 		ser[22].vida = 0;
 	}
+
 	if (ser[23].vida > 0 && ser[23].accion == 1) {
 		ser[23].x = ser[23].x + 5; 
 		ser[23].vida = ser[23].vida - 1;
 	}
+
 	if (ser[23].vida > 0 && ser[23].accion == 2) {
 		ser[23].x = ser[23].x - 5; 
 		ser[23].vida = ser[23].vida - 1;
 	}
+
 	if (ser[23].Clash(ser[1]) == 1 && ser[1].estado != 12 && ser[23].vida > 0) {
 		ser[1].estado = 12; 
 		ser[1].subestado = 5; 
@@ -1916,40 +1841,40 @@ function jugar() {
 			ser[1].linea =1; 
 			switch (ser[1].subestado) {
 				case 7:
-					ser[1].subestado=6; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=-15;
+					ser[1].subestado = 6; 
+					ser[1].fotograma = 12; 
+					ser[1].impulsox = -15;
 					disparaki(1,1); 
 					break;
 				case 6:
-					ser[1].subestado=5; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=-10; 
+					ser[1].subestado = 5; 
+					ser[1].fotograma = 12; 
+					ser[1].impulsox = -10; 
 					break;
 				case 5:
-					ser[1].subestado=4; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=-10; 
+					ser[1].subestado = 4; 
+					ser[1].fotograma = 12; 
+					ser[1].impulsox = -10; 
 					break;
 				case 4:
-					ser[1].subestado=3; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=-5;
+					ser[1].subestado = 3; 
+					ser[1].fotograma = 12; 
+					ser[1].impulsox = -5;
 					break;
 				case 3:
-					ser[1].subestado=2; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=-4; 
+					ser[1].subestado = 2; 
+					ser[1].fotograma = 12; 
+					ser[1].impulsox = -4; 
 					break;
 				case 2:
-					ser[1].subestado=1; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=-3; 
+					ser[1].subestado = 1; 
+					ser[1].fotograma = 12; 
+					ser[1].impulsox =- 3; 
 					break;
 				case 1:
-					ser[1].subestado=0; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=-2; 
+					ser[1].subestado = 0; 
+					ser[1].fotograma = 12; 
+					ser[1].impulsox = -2; 
 					break;
 			}		
 		}	
@@ -1958,9 +1883,9 @@ function jugar() {
 			ser[1].linea =2; 
 			switch (ser[1].subestado) {
 				case 7:
-					ser[1].subestado=6; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=15; 
+					ser[1].subestado = 6; 
+					ser[1].fotograma = 12; 
+					ser[1].impulsox = 15; 
 					disparaki(1,0); 
 					break;
 				case 6:
@@ -2228,8 +2153,8 @@ function jugar() {
 	while (contador < cantidad_seres) {
 		contador = contador + 1;	
 		if (ser[contador].vida > 0) {
-			ser[contador].xmax=ser[contador].x;
-			ser[contador].ymax=ser[contador].y;
+			ser[contador].xmax = ser[contador].x;
+			ser[contador].ymax = ser[contador].y;
 		}
 	}
 
@@ -2363,8 +2288,8 @@ function control_naves () {
 	// lanzar ki
 	
 	if (presiona[tecla_magia1] && ki1 > 5 && contador_bola1==0 && (ser[1].subestado==0 || ser[1].estado==4  || ser[1].estado==2)) {
-		ser[1].estado=11; 
-		ser[1].subestado=7;	
+		ser[1].estado = 11; 
+		ser[1].subestado = 7;	
 		contador_bola1	= 1;	
 	}
 	
@@ -2404,7 +2329,7 @@ function CreateScene() {
     ser[1].vida = 1;
     direccion1 = 1;
 
-    imagen[1].src = 'recursos/p1.png';
+    Images[1].src = './resources/p1.png';
 	//#endregion
 
     //#region Player 2
@@ -2424,7 +2349,7 @@ function CreateScene() {
     ser[2].vida = 1;
     direccion2 = 0;
 
-    imagen[2].src = 'recursos/2.png';
+    Images[2].src = './resources/2.png';
 	//#endregion
 
     //#region Terrain Floor
@@ -2436,17 +2361,17 @@ function CreateScene() {
 	for (let i = 3; i < 6; i++) {
 		ser[i].y = 650;
 		ser[i].w = 480; 
-    	ser[i].h = 100; 
+		ser[i].h = 100; 
 		ser[i].volumen = 1000; 
 		ser[i].dibujo = 3; 
 		ser[i].linea = 1; 
 		ser[i].fotograma = 1; 
 		ser[i].masa = 100; 
 		ser[i].etereo = 2; 
-    	ser[i].vida = 10;
+		ser[i].vida = 10;
 	}
 
-    imagen[3].src = 'recursos/3.png';
+    Images[3].src = './resources/3.png';
 	//#endregion
 
 	//#region K.O.
@@ -2456,7 +2381,7 @@ function CreateScene() {
 	ser[6].dibujo = 10; 
 	ser[6].fotograma = 1; 
 	ser[6].linea = 1;
-    imagen[10].src = 'recursos/10.png';
+    Images[10].src = './resources/10.png';
 	//#endregion
 
 	// platform
@@ -2479,7 +2404,7 @@ function CreateScene() {
 	ser[7].etereo = 2; 
 	ser[7].potencia = 40; 
 	ser[7].vida = 10;
-    imagen[3].src = 'recursos/1.png'; 
+    Images[3].src = './resources/1.png'; 
 
 
 	//#region Life and Ki
@@ -2502,8 +2427,8 @@ function CreateScene() {
 		ser[i].linea = 1;
 	}
 
-	imagen[4].src = 'recursos/4.png';
-    imagen[5].src = 'recursos/5.png';
+	Images[4].src = './resources/4.png';
+    Images[5].src = './resources/5.png';
 
 	//#endregion
 
@@ -2512,13 +2437,15 @@ function CreateScene() {
 	for (let i = 12; i < 22; i++) {
 		ser[i].vida = 0;
 		ser[i].w = ser[i].h = 50; 
-		ser[i].dibujo = 6; 
+		ser[i].dibujo = 6;
 		ser[i].linea = 1;
 		ser[i].fotograma = 1; 
 		ser[i].volumen = 500; 
 	}
 
-	imagen[6].src = 'recursos/6.png';
+	ser[20].dibujo = ser[21].dibujo = 11;
+	Images[11].src = './resources/ki-power/3.png';
+	Images[6].src = './resources/6.png';
 
 	//#endregion
 
@@ -2546,7 +2473,7 @@ function CreateScene() {
 	ser[23].dibujo = 8; 
 	ser[23].linea = 1;
 	
-    imagen[8].src = 'recursos/8.png';
+    Images[8].src = './resources/8.png';
 	//#endregion
 
     //#region Background
@@ -2564,7 +2491,7 @@ function CreateScene() {
 	ser[24].fotograma = 1; 
 	ser[24].linea = 1;
 
-    imagen[9].src = 'recursos/9.png';
+    Images[9].src = './resources/9.png';
 
 	//#endregion
 
@@ -2637,7 +2564,7 @@ function CreateScene() {
 	ser[27].etereo = 2; 
 	ser[27].vida = 10;
 
-    imagen[3].src = 'recursos/3.png';
+    Images[3].src = './resources/3.png';
 
 	//#endregion
 
