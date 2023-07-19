@@ -44,7 +44,7 @@ class Character {
 		cordenadax_dibuja = (this.Frame - 1) * this.Volume;
 		cordenaday_dibuja = (this.Line - 1) * this.Volume;
 		ctx.drawImage(
-			Images[this.dibujo], cordenadax_dibuja, cordenaday_dibuja, 
+			Images[this.Picture], cordenadax_dibuja, cordenaday_dibuja, 
 			this.Volume, this.Volume, this.X, this.Y, this.Volume, this.Volume
 		);
 	}
@@ -57,5 +57,25 @@ class Character {
 		if (this.ImpulseX < 0) this.ImpulseX += 1;
 		if (this.ImpulseY > 0) this.ImpulseY -= 1;
 		if (this.ImpulseY < 0) this.ImpulseY += 1;
+	}
+
+	Direct(xAddress, yAddress) {
+		if (this.X < this.xmax) xAddress = 1;
+		if (this.X > this.xmax) xAddress = 2;
+		if (this.X == this.xmax) xAddress = 0;
+
+		if (this.Y < this.ymax) yAddress = 1;
+		if (this.Y > this.ymax) yAddress = 2;
+		if (this.Y == this.ymax) yAddress = 0;
+
+		if (yAddress == 1 && xAddress == 0) return(1);
+		if (yAddress == 2 && xAddress == 0) return(2);
+		if (yAddress == 0 && xAddress == 1) return(3);
+		if (yAddress == 0 && xAddress == 2) return(4);
+		if (yAddress == 1 && xAddress == 1) return(5);
+		if (yAddress == 1 && xAddress == 2) return(6);
+		if (yAddress == 2 && xAddress == 1) return(7);
+		if (yAddress == 2 && xAddress == 2) return(8);
+		if (yAddress == 0 && xAddress == 0) return(0);
 	}
 }

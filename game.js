@@ -1,4 +1,3 @@
-console.log(111111111111111111111111111111111111111111111)
 var Images = new Array();
 
 for (let i = 1; i < 8; i++) {
@@ -46,7 +45,7 @@ function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dib
 					}
 				}
 			}
-		}		
+		}
 	}
 	
 	this.direccionar = function(direccionx, direcciony) {
@@ -73,8 +72,8 @@ function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dib
 	this.colision = function(rect, dir) {
 		if (this.masa <= rect.masa) {
 			if (dir == 2) {
-				if (this == ser[2]) salto_potencia2 = 5;
-				if (this == ser[1]) salto_potencia1 = 5;
+				if (this == game.Characters[1]) salto_potencia2 = 5;
+				if (this == game.Characters[0]) salto_potencia1 = 5;
 
 				this.ymax = this.y; 
 				this.y = rect.y - this.h; 
@@ -97,8 +96,8 @@ function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dib
 			}
 
 			if (dir == 7) {
-				if (this == ser[2]) salto_potencia2 = 5;
-				if (this == ser[1]) salto_potencia1 = 5;
+				if (this == game.Characters[1]) salto_potencia2 = 5;
+				if (this == game.Characters[0]) salto_potencia1 = 5;
 
 				if (this.ymax < rect.y + rect.h && this.ymax + this.h > rect.y)	{
 					rect.xmax = rect.x; 
@@ -115,10 +114,10 @@ function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dib
 			}
 
 			if (dir == 8) {
-				if (this == ser[2]) {
+				if (this == game.Characters[1]) {
 					salto_potencia2 = 5;
 				} 
-				if (this == ser[1]) {
+				if (this == game.Characters[0]) {
 					salto_potencia1=5;
 				} 
 
@@ -255,13 +254,10 @@ function ente(x, y, xmax, ymax, xini, yini, w, h, volumen, fotograma, linea, dib
 var ser = new Array();
 for (let i = 0; i < 31; i++) ser[i] = new ente(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-ser[1].impulsox = 0; 
-ser[1].impulsoy = 0;	
-
 
 class Game {
 	constructor() {
-		this.Scene = 2;
+		this.Scene = 3;
 		this.Characters = [];
 		this.CountScene = 0;
 	}
@@ -274,14 +270,6 @@ class Game {
 		this.Characters.push(newPlayer);
 	}
 }
-const engine = new Engine();
-var game = new Game(1,2);
-game.Print();
-
-game.AddPlayer(new Character(...engine.GetPlayer1Keys(),10, 20, 15));
-game.AddPlayer(new Character(...engine.GetPlayer2Keys(),15, 20, 10));
-
-// Variables
 
 // scene
 
@@ -399,8 +387,8 @@ function disparaki (player, address) {
 			for(let i = 12; i < 17; i++) {
 				if (ser[i].vida == 0) {
 					ser[i].vida = 1;	
-					ser[i].x = ser[1].x + 50; 
-					ser[i].y = ser[1].y; 	
+					ser[i].x = game.Characters[0].x + 50; 
+					ser[i].y = game.Characters[0].y; 	
 					ser[i].accion = 1; 	
 					break;
 				}
@@ -412,8 +400,8 @@ function disparaki (player, address) {
 			for(let i = 12; i < 17; i++) {
 				if (ser[i].vida == 0) {
 					ser[i].vida = 1;	
-					ser[i].x = ser[1].x; 
-					ser[i].y = ser[1].y; 	
+					ser[i].x = game.Characters[0].x; 
+					ser[i].y = game.Characters[0].y; 	
 					ser[i].accion = 2; 	
 					break;
 				}
@@ -428,8 +416,8 @@ function disparaki (player, address) {
 			for(let i = 17; i < 22; i++) {
 				if (ser[i].vida == 0) {
 					ser[i].vida = 1;	
-					ser[i].x = ser[2].x + 50; 
-					ser[i].y = ser[2].y; 	
+					ser[i].x = game.Characters[1].x + 50; 
+					ser[i].y = game.Characters[1].y; 	
 					ser[i].accion = 1; 	
 					break;
 				}
@@ -442,8 +430,8 @@ function disparaki (player, address) {
 			for(let i = 17; i < 22; i++) {
 				if (ser[i].vida == 0) {
 					ser[i].vida = 1;	
-					ser[i].x = ser[2].x; 
-					ser[i].y = ser[2].y; 	
+					ser[i].x = game.Characters[1].x; 
+					ser[i].y = game.Characters[1].y; 	
 					ser[i].accion = 2; 	
 					break;
 				}
@@ -482,34 +470,8 @@ function disparagolpe (player, address, pod) {
 	}
 }
 
-console.log('funciones')
 
 //------------------------------FIN
-
-// Inicio
-window.addEventListener('load', init, false);
-var juego = null;
-var ctx = null;
-var presiona = [];
-var lastPress = null;
-
-// Disparador
-function init() {
-	tocar1 = document.getElementById("sonidofx");
-    juego = document.getElementById('iijuego');
-    ctx = juego.getContext('2d');  
-
-    juego.width = 1280;
-    //juego.height = 720;
-    juego.height = 820;
-    juego.style.position = 'fixed';
-    juego.style.top ='0';
-    juego.style.left = '0';
-    juego.style.width = '100%';
-    juego.style.height = '100%';
-    
-    bucle();
-}
 
 function GenerateGame() {
 	//ctx.fillStyle = '#000000';
@@ -537,8 +499,8 @@ function GenerateGame() {
 	}
 
 	//generate players
-	ser[1].Draw(ctx);
-	ser[2].Draw(ctx);
+	game.Characters[0].Draw(ctx);
+	game.Characters[1].Draw(ctx);
 
 	// generate hits
 	if (ser[22].vida > 0) ser[22].Draw(ctx);
@@ -659,71 +621,13 @@ function GenerateCover() {
 	ctx.fillText('Anime Character Fight', 40, 247)		
 }
 
-function bucle() {
-    setTimeout(bucle,40);
-    
-    if (game.Scene == 1) {
-        jugar();
-        GenerateGame(); 
-    }
-
-    if (game.Scene == 2) {
-        CoverLogic(); 
-        GenerateCover(); 
-    }
-    
-    if (game.Scene == 3) CreateScene();
-    
-}
-
-
-document.addEventListener('mousemove',
-    function(evt) {
-		console.log('mousemove');
-        mousex = evt.pageX - juego.offsetLeft;
-        mousey = evt.pageY - juego.offsetTop;
-    }, 
-    false
-);
-
-document.addEventListener('keydown',
-    function(evt) { 
-		console.log('keydown');
-        lastPress = evt.keyCode;  
-        presiona[evt.keyCode] = true; 
-    },
-    false
-);
-
-document.addEventListener('keyup',
-    function(evt) {
-		console.log('keyup');
-        presiona[evt.keyCode] = false; 
-    },
-    false
-);
-
-//---------
-window.requestAnimationFrame = (
-    function() {
-		console.log('requestAnimationFrame');
-        return window.requestAnimationFrame || window.webkitRequestAnimationFrame 
-            || window.mozRequestAnimationFrame || function(callback) {
-                window.setTimeout(callback,17);
-            }; 
-    }
-)();
-
-console.log('game')
-
-
 function jugar() {
 	// Movimientos 
-	if (ser[1].subestado == 0) ser[1].estado = 1;
-	if (ser[2].subestado == 0) ser[2].estado = 1;
+	if (game.Characters[0].subestado == 0) game.Characters[0].estado = 1;
+	if (game.Characters[1].subestado == 0) game.Characters[1].estado = 1;
 
-	ser[1].impulsoy = gravedad;
-	ser[2].impulsoy = gravedad;
+	game.Characters[0].impulsoy = gravedad;
+	game.Characters[1].impulsoy = gravedad;
 
 	// Bolas de ki
 	contador = 11;
@@ -734,9 +638,9 @@ function jugar() {
 		if (ser[contador].vida > 0 && ser[contador].accion == 1) ser[contador].x = ser[contador].x + 20;
 		if (ser[contador].vida > 0 && ser[contador].accion == 2) ser[contador].x = ser[contador].x - 20;
 
-		if (ser[contador].Clash(ser[2]) == 1 && ser[2].estado != 12 && ser[contador].vida > 0)  {
-			ser[2].estado = 12; 
-			ser[2].subestado = 5; 
+		if (ser[contador].Clash(game.Characters[1]) == 1 && game.Characters[1].estado != 12 && ser[contador].vida > 0)  {
+			game.Characters[1].estado = 12; 
+			game.Characters[1].subestado = 5; 
 			vida2 = vida2 - p1_poderbola; 
 			ser[contador].vida = 0;
 		}
@@ -750,9 +654,9 @@ function jugar() {
 		if (ser[contador].vida > 0 && ser[contador].accion == 1) ser[contador].x = ser[contador].x + 20;
 		if (ser[contador].vida > 0 && ser[contador].accion == 2) ser[contador].x = ser[contador].x - 20;
 
-		if (ser[contador].Clash(ser[1]) == 1 && ser[1].estado != 12 && ser[contador].vida > 0) {
-			ser[1].estado = 12; 
-			ser[1].subestado = 5; 
+		if (ser[contador].Clash(game.Characters[0]) == 1 && game.Characters[0].estado != 12 && ser[contador].vida > 0) {
+			game.Characters[0].estado = 12; 
+			game.Characters[0].subestado = 5; 
 			vida1 = vida1 - p2_poderbola; 
 			ser[contador].vida = 0;
 		}
@@ -769,9 +673,9 @@ function jugar() {
 		ser[22].vida = ser[22].vida-1;
 	}
 
-	if (ser[22].Clash(ser[2]) == 1 && ser[2].estado != 12 && ser[22].vida > 0) {
-		ser[2].estado = 12; 
-		ser[2].subestado = 5; 
+	if (ser[22].Clash(game.Characters[1]) == 1 && game.Characters[1].estado != 12 && ser[22].vida > 0) {
+		game.Characters[1].estado = 12; 
+		game.Characters[1].subestado = 5; 
 		vida2 = vida2 - p1_podergolpe; 
 		ser[22].vida = 0;
 	}
@@ -786,9 +690,9 @@ function jugar() {
 		ser[23].vida = ser[23].vida - 1;
 	}
 
-	if (ser[23].Clash(ser[1]) == 1 && ser[1].estado != 12 && ser[23].vida > 0) {
-		ser[1].estado = 12; 
-		ser[1].subestado = 5; 
+	if (ser[23].Clash(game.Characters[0]) == 1 && game.Characters[0].estado != 12 && ser[23].vida > 0) {
+		game.Characters[0].estado = 12; 
+		game.Characters[0].subestado = 5; 
 		vida1 = vida1 - p2_podergolpe; 
 		ser[23].vida = 0;
 	}
@@ -824,1142 +728,1142 @@ function jugar() {
 		
 	// parado
 		
-	if (ser[1].estado == 1) {
+	if (game.Characters[0].estado == 1) {
 		if (salto_potencia1 > 0) {
-			if (ser[1].fotograma < 4) ser[1].fotograma += 1;
-			else ser[1].fotograma = 1;
+			if (game.Characters[0].fotograma < 4) game.Characters[0].fotograma += 1;
+			else game.Characters[0].fotograma = 1;
 		}	
 
-		else ser[1].fotograma = 5;		
+		else game.Characters[0].fotograma = 5;		
 	}
 		
-	if (ser[2].estado == 1) {
+	if (game.Characters[1].estado == 1) {
 		if (salto_potencia2 > 0) {
-			if (ser[2].fotograma < 4) ser[2].fotograma += 1;
-			else ser[2].fotograma = 1;
+			if (game.Characters[1].fotograma < 4) game.Characters[1].fotograma += 1;
+			else game.Characters[1].fotograma = 1;
 		}	
 
-		else ser[2].fotograma = 5;		
+		else game.Characters[1].fotograma = 5;		
 	}	
 		
 	// caminar
 
-	if (ser[1].estado == 2) {
-		if (ser[1].subestado < 5) ser[1].impulsox = (ser[1].subestado + 1) * 2; 
-		else ser[1].impulsox = p1_vel;
+	if (game.Characters[0].estado == 2) {
+		if (game.Characters[0].subestado < 5) game.Characters[0].impulsox = (game.Characters[0].subestado + 1) * 2; 
+		else game.Characters[0].impulsox = p1_vel;
 
-		ser[1].subestado -= 1;
-		ser[1].fotograma = 10; 
-		ser[1].linea = 1; 
+		game.Characters[0].subestado -= 1;
+		game.Characters[0].fotograma = 10; 
+		game.Characters[0].linea = 1; 
 		direccion1 = 1;
 	}
 
-	if (ser[1].estado == 4) {
-		if (ser[1].subestado < 5) ser[1].impulsox = -(ser[1].subestado + 1) * 2; 
-		else ser[1].impulsox = -p1_vel;
+	if (game.Characters[0].estado == 4) {
+		if (game.Characters[0].subestado < 5) game.Characters[0].impulsox = -(game.Characters[0].subestado + 1) * 2; 
+		else game.Characters[0].impulsox = -p1_vel;
 
-		ser[1].subestado -= 1;
-		ser[1].fotograma = 10;
-		ser[1].linea = 2; 
+		game.Characters[0].subestado -= 1;
+		game.Characters[0].fotograma = 10;
+		game.Characters[0].linea = 2; 
 		direccion1 = 0;		
 	}	
 
-	if (ser[2].estado == 2) {
-		switch (ser[2].subestado) {
+	if (game.Characters[1].estado == 2) {
+		switch (game.Characters[1].subestado) {
 			case 5: 
-				ser[2].subestado = 4;
-				ser[2].fotograma = 10;
-				ser[2].impulsox = p2_vel;
+				game.Characters[1].subestado = 4;
+				game.Characters[1].fotograma = 10;
+				game.Characters[1].impulsox = p2_vel;
 				break;
 			case 4:
-				ser[2].subestado = 3;
-				ser[2].fotograma = 10;
-				ser[2].impulsox = 10;
+				game.Characters[1].subestado = 3;
+				game.Characters[1].fotograma = 10;
+				game.Characters[1].impulsox = 10;
 				break;
 			case 3:
-				ser[2].subestado = 2;
-				ser[2].fotograma = 10;
-				ser[2].impulsox = 8;
+				game.Characters[1].subestado = 2;
+				game.Characters[1].fotograma = 10;
+				game.Characters[1].impulsox = 8;
 				break;
 			case 2:
-				ser[2].subestado = 1;
-				ser[2].fotograma = 10;
-				ser[2].impulsox = 6;
+				game.Characters[1].subestado = 1;
+				game.Characters[1].fotograma = 10;
+				game.Characters[1].impulsox = 6;
 				break;
 			case 1:
-				ser[2].subestado = 0;
-				ser[2].fotograma = 10;
-				ser[2].impulsox = 4;
+				game.Characters[1].subestado = 0;
+				game.Characters[1].fotograma = 10;
+				game.Characters[1].impulsox = 4;
 				break;
 			}
 
-		ser[2].linea = 1; 
+		game.Characters[1].linea = 1; 
 		direccion2 = 1;
 	}		
 		
-	if (ser[2].estado==4) {
-		switch (ser[2].subestado) {
+	if (game.Characters[1].estado==4) {
+		switch (game.Characters[1].subestado) {
 			case 5:
-				ser[2].subestado=4;
-				ser[2].fotograma =10;
-				ser[2].impulsox=0-p2_vel;
+				game.Characters[1].subestado=4;
+				game.Characters[1].fotograma =10;
+				game.Characters[1].impulsox=0-p2_vel;
 				break;
 			case 4:
-				ser[2].subestado=3;
-				ser[2].fotograma =10;
-				ser[2].impulsox=-10;
+				game.Characters[1].subestado=3;
+				game.Characters[1].fotograma =10;
+				game.Characters[1].impulsox=-10;
 				break;
 			case 3:
-				ser[2].subestado=2;
-				ser[2].fotograma =10;
-				ser[2].impulsox=-8;
+				game.Characters[1].subestado=2;
+				game.Characters[1].fotograma =10;
+				game.Characters[1].impulsox=-8;
 				break;
 			case 2: 
-				ser[2].subestado=1;
-				ser[2].fotograma =10;
-				ser[2].impulsox=-6;
+				game.Characters[1].subestado=1;
+				game.Characters[1].fotograma =10;
+				game.Characters[1].impulsox=-6;
 				break;
 			case 1:
-				ser[2].subestado=0;
-				ser[2].fotograma =10;
-				ser[2].impulsox=-4;
+				game.Characters[1].subestado=0;
+				game.Characters[1].fotograma =10;
+				game.Characters[1].impulsox=-4;
 				break;
 		}
 
-		ser[2].linea =2; 
+		game.Characters[1].linea =2; 
 		direccion2 =0;		
 	}		
 		
 	// golpes jugador1
 
-	if (ser[2].estado == 5) {
-		switch (ser[2].subestado) {
+	if (game.Characters[1].estado == 5) {
+		switch (game.Characters[1].subestado) {
 			case 10:
-				ser[2].subestado=9; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=20; 
+				game.Characters[1].subestado=9; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=20; 
 				disparagolpe(2,1,1); 
 				break;
 			case 9:
-				ser[2].subestado=8; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=20; 
+				game.Characters[1].subestado=8; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=20; 
 				break;
 			case 8:
-				ser[2].subestado=7; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=15; 
+				game.Characters[1].subestado=7; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=15; 
 				break;
 			case 7:
-				ser[2].subestado=6; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=10; 
+				game.Characters[1].subestado=6; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=10; 
 				break;
 			case 6:
-				ser[2].subestado=5; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=5; 
+				game.Characters[1].subestado=5; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=5; 
 				break;
 			case 5:
-				ser[2].subestado=4;
-				ser[2].fotograma =7; 
+				game.Characters[1].subestado=4;
+				game.Characters[1].fotograma =7; 
 				break;
 			case 4:
-				ser[2].subestado=3; 
-				ser[2].fotograma =7; 
+				game.Characters[1].subestado=3; 
+				game.Characters[1].fotograma =7; 
 				break;
 			case 3:
-				ser[2].subestado=2;
-				ser[2].fotograma =7; 
+				game.Characters[1].subestado=2;
+				game.Characters[1].fotograma =7; 
 				break;
 			case 2:
-				ser[2].subestado=1; 
-				ser[2].fotograma =7;
+				game.Characters[1].subestado=1; 
+				game.Characters[1].fotograma =7;
 				break;
 			case 1:
-				ser[2].subestado=0;
-				ser[2].fotograma =7;
+				game.Characters[1].subestado=0;
+				game.Characters[1].fotograma =7;
 				break;
 		}
 			
-		ser[2].linea =1; 
+		game.Characters[1].linea =1; 
 		direccion2 =1;	
 	}		
 
-	if (ser[2].estado == 6) {
-		switch (ser[2].subestado) {
+	if (game.Characters[1].estado == 6) {
+		switch (game.Characters[1].subestado) {
 			case 10:
-				ser[2].subestado=9; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=-20; 
+				game.Characters[1].subestado=9; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=-20; 
 				disparagolpe(2,2,1); 
 				break;
 			case 9:
-				ser[2].subestado=8; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=-20; 
+				game.Characters[1].subestado=8; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=-20; 
 				break;
 			case 8: 
-				ser[2].subestado=7; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=-15; 
+				game.Characters[1].subestado=7; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=-15; 
 				break;
 			case 7:
-				ser[2].subestado=6; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=-10; 
+				game.Characters[1].subestado=6; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=-10; 
 				break;
 			case 6:
-				ser[2].subestado=5; 
-				ser[2].fotograma =7; 
-				ser[2].impulsox=-5; 
+				game.Characters[1].subestado=5; 
+				game.Characters[1].fotograma =7; 
+				game.Characters[1].impulsox=-5; 
 				break;
 			case 5:
-				ser[2].subestado=4; 
-				ser[2].fotograma =7; 
+				game.Characters[1].subestado=4; 
+				game.Characters[1].fotograma =7; 
 				break;
 			case 4:
-				ser[2].subestado=3; 
-				ser[2].fotograma =7;
+				game.Characters[1].subestado=3; 
+				game.Characters[1].fotograma =7;
 				break;
 			case 3:
-				ser[2].subestado=2; 
-				ser[2].fotograma =7;
+				game.Characters[1].subestado=2; 
+				game.Characters[1].fotograma =7;
 				break;
 			case 2:
-				ser[2].subestado=1; 
-				ser[2].fotograma =7; 
+				game.Characters[1].subestado=1; 
+				game.Characters[1].fotograma =7; 
 				break;
 			case 1:
-				ser[2].subestado=0;
-				ser[2].fotograma =7; 
+				game.Characters[1].subestado=0;
+				game.Characters[1].fotograma =7; 
 				break;	
 		}
 
-		ser[2].linea =2; 
+		game.Characters[1].linea =2; 
 		direccion2 =0;	
 	}	
 	
 	
-	if (ser[2].estado==7) {
-		switch (ser[2].subestado) {
+	if (game.Characters[1].estado==7) {
+		switch (game.Characters[1].subestado) {
 			case 10:
-				ser[2].subestado=9; 
-				ser[2].fotograma =8; 
-				ser[2].impulsox=15; 
+				game.Characters[1].subestado=9; 
+				game.Characters[1].fotograma =8; 
+				game.Characters[1].impulsox=15; 
 				disparagolpe(2,1,2); 
 				break;
 			case 9:
-				ser[2].subestado=8; 
-				ser[2].fotograma =8;
-				ser[2].impulsox=15; 
+				game.Characters[1].subestado=8; 
+				game.Characters[1].fotograma =8;
+				game.Characters[1].impulsox=15; 
 				break;
 			case 8:
-				ser[2].subestado=7; 
-				ser[2].fotograma =8;
-				ser[2].impulsox=15;
+				game.Characters[1].subestado=7; 
+				game.Characters[1].fotograma =8;
+				game.Characters[1].impulsox=15;
 				break;
 			case 7:
-				ser[2].subestado=6; 
-				ser[2].fotograma =8;
-				ser[2].impulsox=10; 
+				game.Characters[1].subestado=6; 
+				game.Characters[1].fotograma =8;
+				game.Characters[1].impulsox=10; 
 				break;
 			case 6:
-				ser[2].subestado=5; 
-				ser[2].fotograma =8;
-				ser[2].impulsox=5; 
+				game.Characters[1].subestado=5; 
+				game.Characters[1].fotograma =8;
+				game.Characters[1].impulsox=5; 
 				break;
 			case 5:
-				ser[2].subestado=4; 
-				ser[2].fotograma =8;
+				game.Characters[1].subestado=4; 
+				game.Characters[1].fotograma =8;
 				break;
 			case 4:
-				ser[2].subestado=3; 
-				ser[2].fotograma =8;
+				game.Characters[1].subestado=3; 
+				game.Characters[1].fotograma =8;
 				break;
 			case 3:
-				ser[2].subestado=2; 
-				ser[2].fotograma =8;
+				game.Characters[1].subestado=2; 
+				game.Characters[1].fotograma =8;
 				break;
 			case 2:
-				ser[2].subestado=1; 
-				ser[2].fotograma =8;
+				game.Characters[1].subestado=1; 
+				game.Characters[1].fotograma =8;
 				break;
 			case 1:
-				ser[2].subestado=0; 
-				ser[2].fotograma =8;
+				game.Characters[1].subestado=0; 
+				game.Characters[1].fotograma =8;
 				break;
 		}
 
-		ser[2].linea =1; 
+		game.Characters[1].linea =1; 
 		direccion2 =1;	
 	}
 
-	if (ser[2].estado==8) {
-		switch (ser[2].subestado) {
+	if (game.Characters[1].estado==8) {
+		switch (game.Characters[1].subestado) {
 			case 10:
-				ser[2].subestado=9; 
-				ser[2].fotograma =8; 
-				ser[2].impulsox=-15; 
+				game.Characters[1].subestado=9; 
+				game.Characters[1].fotograma =8; 
+				game.Characters[1].impulsox=-15; 
 				disparagolpe(2,2,2); 
 				break;
 			case 9:
-				ser[2].subestado=8; 
-				ser[2].fotograma =8; 
-				ser[2].impulsox=-15; 
+				game.Characters[1].subestado=8; 
+				game.Characters[1].fotograma =8; 
+				game.Characters[1].impulsox=-15; 
 				break;
 			case 8:
-				ser[2].subestado=7; 
-				ser[2].fotograma =8; 
-				ser[2].impulsox=-15; 
+				game.Characters[1].subestado=7; 
+				game.Characters[1].fotograma =8; 
+				game.Characters[1].impulsox=-15; 
 				break;
 			case 7:
-				ser[2].subestado=6; 
-				ser[2].fotograma =8; 
-				ser[2].impulsox=-10; 
+				game.Characters[1].subestado=6; 
+				game.Characters[1].fotograma =8; 
+				game.Characters[1].impulsox=-10; 
 				break;
 			case 6:
-				ser[2].subestado=5; 
-				ser[2].fotograma =8; 
-				ser[2].impulsox=-5; 
+				game.Characters[1].subestado=5; 
+				game.Characters[1].fotograma =8; 
+				game.Characters[1].impulsox=-5; 
 				break;
 			case 5:
-				ser[2].subestado=4; 
-				ser[2].fotograma =8; 
+				game.Characters[1].subestado=4; 
+				game.Characters[1].fotograma =8; 
 				break;
 			case 4:
-				ser[2].subestado=3; 
-				ser[2].fotograma =8; 
+				game.Characters[1].subestado=3; 
+				game.Characters[1].fotograma =8; 
 				break;
 			case 3:
-				ser[2].subestado=2; 
-				ser[2].fotograma =8; 
+				game.Characters[1].subestado=2; 
+				game.Characters[1].fotograma =8; 
 				break;
 			case 2:
-				ser[2].subestado=1; 
-				ser[2].fotograma =8; 
+				game.Characters[1].subestado=1; 
+				game.Characters[1].fotograma =8; 
 				break;
 			case 1:
-				ser[2].subestado=0; 
-				ser[2].fotograma =8; 
+				game.Characters[1].subestado=0; 
+				game.Characters[1].fotograma =8; 
 				break;
 			}
 
-		ser[2].linea =2; 
+		game.Characters[1].linea =2; 
 		direccion2 =0;	
 	}	
 
-	if (ser[2].estado == 9) {
-		switch (ser[2].subestado) {
+	if (game.Characters[1].estado == 9) {
+		switch (game.Characters[1].subestado) {
 			case 15: 
-				ser[2].subestado=14; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=30; 
+				game.Characters[1].subestado=14; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=30; 
 				disparagolpe(2,1,3); 
 				break;
 			case 14: 
-				ser[2].subestado=13; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=30; 
+				game.Characters[1].subestado=13; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=30; 
 				break;
 			case 13: 
-				ser[2].subestado=12; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=30; 
+				game.Characters[1].subestado=12; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=30; 
 				break;
 			case 12: 
-				ser[2].subestado=11; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=20; 
+				game.Characters[1].subestado=11; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=20; 
 				break;
 			case 11: 
-				ser[2].subestado=10; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=10; 
+				game.Characters[1].subestado=10; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=10; 
 				break;
 			case 10: 
-				ser[2].subestado=9; 
-				ser[2].fotograma =9;  
+				game.Characters[1].subestado=9; 
+				game.Characters[1].fotograma =9;  
 				break
 			case 9:
-				ser[2].subestado=8; 
-				ser[2].fotograma =9;  
+				game.Characters[1].subestado=8; 
+				game.Characters[1].fotograma =9;  
 				break;
 			case 8:
-				ser[2].subestado=7; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=7; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 7:
-				ser[2].subestado=6; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=6; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 6:
-				ser[2].subestado=5; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=5; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 5:
-				ser[2].subestado=4; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=4; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 4:
-				ser[2].subestado=3; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=3; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 3:
-				ser[2].subestado=2; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=2; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 2:
-				ser[2].subestado=1; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=1; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 1:
-				ser[2].subestado=0; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=0; 
+				game.Characters[1].fotograma =1;  
 				break;
 		}
 
-		ser[2].linea =1; 
+		game.Characters[1].linea =1; 
 		direccion2 =1;	
 	}
 
-	if (ser[2].estado == 10) {
-		switch (ser[2].subestado) {
+	if (game.Characters[1].estado == 10) {
+		switch (game.Characters[1].subestado) {
 			case 15: 
-				ser[2].subestado=14; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=-30; 
+				game.Characters[1].subestado=14; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=-30; 
 				disparagolpe(2,2,3); 
 				break;
 			case 14: 
-				ser[2].subestado=13; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=-30; 
+				game.Characters[1].subestado=13; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=-30; 
 				break;
 			case 13: 
-				ser[2].subestado=12; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=-30; 
+				game.Characters[1].subestado=12; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=-30; 
 				break;
 			case 12: 
-				ser[2].subestado=11; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=-20; 
+				game.Characters[1].subestado=11; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=-20; 
 				break;
 			case 11: 
-				ser[2].subestado=10; 
-				ser[2].fotograma =9; 
-				ser[2].impulsox=-10; 
+				game.Characters[1].subestado=10; 
+				game.Characters[1].fotograma =9; 
+				game.Characters[1].impulsox=-10; 
 				break;
 			case 10: 
-				ser[2].subestado=9; 
-				ser[2].fotograma =9;  
+				game.Characters[1].subestado=9; 
+				game.Characters[1].fotograma =9;  
 				break;
 			case 9:
-				ser[2].subestado=8; 
-				ser[2].fotograma =9;  
+				game.Characters[1].subestado=8; 
+				game.Characters[1].fotograma =9;  
 				break;
 			case 8:
-				ser[2].subestado=7; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=7; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 7:
-				ser[2].subestado=6; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=6; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 6:
-				ser[2].subestado=5; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=5; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 5:
-				ser[2].subestado=4; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=4; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 4:
-				ser[2].subestado=3; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=3; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 3:
-				ser[2].subestado=2; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=2; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 2:
-				ser[2].subestado=1; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=1; 
+				game.Characters[1].fotograma =1;  
 				break;
 			case 1:
-				ser[2].subestado=0; 
-				ser[2].fotograma =1;  
+				game.Characters[1].subestado=0; 
+				game.Characters[1].fotograma =1;  
 				break;
 		}
 			
-		ser[2].linea =2; 
+		game.Characters[1].linea =2; 
 		direccion2 =0;	
 	}
 		
 	// golpes jugador2
-	if (ser[1].estado == 5) {
-		switch (ser[1].subestado) {
+	if (game.Characters[0].estado == 5) {
+		switch (game.Characters[0].subestado) {
 			case 10:
-				ser[1].subestado=9; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=20; 
+				game.Characters[0].subestado=9; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=20; 
 				disparagolpe(1,1,1); 
 				break;
 			case 9:
-				ser[1].subestado=8; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=20; 
+				game.Characters[0].subestado=8; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=20; 
 				break;
 			case 8:
-				ser[1].subestado=7; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=15; 
+				game.Characters[0].subestado=7; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=15; 
 				break;
 			case 7:
-				ser[1].subestado=6; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=10; 
+				game.Characters[0].subestado=6; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=10; 
 				break;
 			case 6:
-				ser[1].subestado=5; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=5; 
+				game.Characters[0].subestado=5; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=5; 
 				break;
 			case 5:
-				ser[1].subestado=4; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=4; 
+				game.Characters[0].fotograma =7;  
 				break;
 			case 4:
-				ser[1].subestado=3; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=3; 
+				game.Characters[0].fotograma =7;  
 				break;
 			case 3:
-				ser[1].subestado=2; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=2; 
+				game.Characters[0].fotograma =7;  
 				break;
 			case 2:
-				ser[1].subestado=1; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=1; 
+				game.Characters[0].fotograma =7;  
 				break;
 			case 1:
-				ser[1].subestado=0; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=0; 
+				game.Characters[0].fotograma =7;  
 				break;
 		}
 			
-		ser[1].linea =1; 
+		game.Characters[0].linea =1; 
 		direccion1 =1;	
 	}		
 		
-	if (ser[1].estado == 6) {
-		switch (ser[1].subestado) {
+	if (game.Characters[0].estado == 6) {
+		switch (game.Characters[0].subestado) {
 			case 10:
-				ser[1].subestado=9; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=-20; 
+				game.Characters[0].subestado=9; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=-20; 
 				disparagolpe(1,2,1); 
 				break;
 			case 9:
-				ser[1].subestado=8; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=-20; 
+				game.Characters[0].subestado=8; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=-20; 
 				break;
 			case 8:
-				ser[1].subestado=7; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=-15; 
+				game.Characters[0].subestado=7; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=-15; 
 				break;
 			case 7:
-				ser[1].subestado=6; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=-10; 
+				game.Characters[0].subestado=6; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=-10; 
 				break;
 			case 6:
-				ser[1].subestado=5; 
-				ser[1].fotograma =7; 
-				ser[1].impulsox=-5; 
+				game.Characters[0].subestado=5; 
+				game.Characters[0].fotograma =7; 
+				game.Characters[0].impulsox=-5; 
 				break;
 			case 5:
-				ser[1].subestado=4; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=4; 
+				game.Characters[0].fotograma =7;  
 				break;
 			case 4:
-				ser[1].subestado=3; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=3; 
+				game.Characters[0].fotograma =7;  
 				break;
 			case 3:
-				ser[1].subestado=2; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=2; 
+				game.Characters[0].fotograma =7;  
 				break;
 			case 2:
-				ser[1].subestado=1; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=1; 
+				game.Characters[0].fotograma =7;  
 				break;
 			case 1:
-				ser[1].subestado=0; 
-				ser[1].fotograma =7;  
+				game.Characters[0].subestado=0; 
+				game.Characters[0].fotograma =7;  
 				break;		
 		}
 			
-		ser[1].linea =2; 
+		game.Characters[0].linea =2; 
 		direccion1 =0;	
 	}	
 		
-	if (ser[1].estado == 7) {
-		switch (ser[1].subestado) {
+	if (game.Characters[0].estado == 7) {
+		switch (game.Characters[0].subestado) {
 			case 10:
-				ser[1].subestado=9; 
-				ser[1].fotograma =8; 
-				ser[1].impulsox=15; 
+				game.Characters[0].subestado=9; 
+				game.Characters[0].fotograma =8; 
+				game.Characters[0].impulsox=15; 
 				disparagolpe(1,1,2); 
 				break;
 			case 9:
-				ser[1].subestado=8; 
-				ser[1].fotograma =8; 
-				ser[1].impulsox=15; 
+				game.Characters[0].subestado=8; 
+				game.Characters[0].fotograma =8; 
+				game.Characters[0].impulsox=15; 
 				break;
 			case 8:
-				ser[1].subestado=7; 
-				ser[1].fotograma =8; 
-				ser[1].impulsox=15; 
+				game.Characters[0].subestado=7; 
+				game.Characters[0].fotograma =8; 
+				game.Characters[0].impulsox=15; 
 				break;
 			case 7:
-				ser[1].subestado=6; 
-				ser[1].fotograma =8; 
-				ser[1].impulsox=10; 
+				game.Characters[0].subestado=6; 
+				game.Characters[0].fotograma =8; 
+				game.Characters[0].impulsox=10; 
 				break;
 			case 6:
-				ser[1].subestado=5; 
-				ser[1].fotograma =8; 
-				ser[1].impulsox=5; 
+				game.Characters[0].subestado=5; 
+				game.Characters[0].fotograma =8; 
+				game.Characters[0].impulsox=5; 
 				break;
 			case 5:
-				ser[1].subestado=4; 
-				ser[1].fotograma =8;  
+				game.Characters[0].subestado=4; 
+				game.Characters[0].fotograma =8;  
 				break;
 			case 4:
-				ser[1].subestado=3; 
-				ser[1].fotograma =8;  
+				game.Characters[0].subestado=3; 
+				game.Characters[0].fotograma =8;  
 				break;
 			case 3:
-				ser[1].subestado=2; 
-				ser[1].fotograma =8;  
+				game.Characters[0].subestado=2; 
+				game.Characters[0].fotograma =8;  
 				break;
 			case 2:
-				ser[1].subestado=1; 
-				ser[1].fotograma =8;  
+				game.Characters[0].subestado=1; 
+				game.Characters[0].fotograma =8;  
 				break;
 			case 1:
-				ser[1].subestado=0; 
-				ser[1].fotograma =8;  
+				game.Characters[0].subestado=0; 
+				game.Characters[0].fotograma =8;  
 				break;
 			}
 			
-		ser[1].linea =1; 
+		game.Characters[0].linea =1; 
 		direccion1 =1;	
 	}
 
-	if (ser[1].estado==8) {
-		switch (ser[1].subestado) {
+	if (game.Characters[0].estado==8) {
+		switch (game.Characters[0].subestado) {
 			case 10:
-				ser[1].subestado = 9; 
-				ser[1].fotograma = 8; 
-				ser[1].impulsox = -15; 
+				game.Characters[0].subestado = 9; 
+				game.Characters[0].fotograma = 8; 
+				game.Characters[0].impulsox = -15; 
 				disparagolpe(1,2,2); 
 				break;
 			case 9:
-				ser[1].subestado = 8; 
-				ser[1].fotograma = 8; 
-				ser[1].impulsox = -15; 
+				game.Characters[0].subestado = 8; 
+				game.Characters[0].fotograma = 8; 
+				game.Characters[0].impulsox = -15; 
 				break;
 			case 8:
-				ser[1].subestado = 7; 
-				ser[1].fotograma = 8; 
-				ser[1].impulsox = -15; 
+				game.Characters[0].subestado = 7; 
+				game.Characters[0].fotograma = 8; 
+				game.Characters[0].impulsox = -15; 
 				break;
 			case 7:
-				ser[1].subestado = 6; 
-				ser[1].fotograma = 8; 
-				ser[1].impulsox = -10; 
+				game.Characters[0].subestado = 6; 
+				game.Characters[0].fotograma = 8; 
+				game.Characters[0].impulsox = -10; 
 				break;
 			case 6:
-				ser[1].subestado = 5; 
-				ser[1].fotograma = 8; 
-				ser[1].impulsox = -5; 
+				game.Characters[0].subestado = 5; 
+				game.Characters[0].fotograma = 8; 
+				game.Characters[0].impulsox = -5; 
 				break;
 			case 5:
-				ser[1].subestado = 4; 
-				ser[1].fotograma = 8; 
+				game.Characters[0].subestado = 4; 
+				game.Characters[0].fotograma = 8; 
 				break;
 			case 4:
-				ser[1].subestado = 3; 
-				ser[1].fotograma = 8; 
+				game.Characters[0].subestado = 3; 
+				game.Characters[0].fotograma = 8; 
 				break;
 			case 3:
-				ser[1].subestado = 2; 
-				ser[1].fotograma = 8; 
+				game.Characters[0].subestado = 2; 
+				game.Characters[0].fotograma = 8; 
 				break;
 			case 2:
-				ser[1].subestado = 1; 
-				ser[1].fotograma = 8; 
+				game.Characters[0].subestado = 1; 
+				game.Characters[0].fotograma = 8; 
 				break;
 			case 1:
-				ser[1].subestado = 0; 
-				ser[1].fotograma = 8; 
+				game.Characters[0].subestado = 0; 
+				game.Characters[0].fotograma = 8; 
 				break;
 		}
 
-		ser[1].linea =2; 
+		game.Characters[0].linea =2; 
 		direccion1 =0;	
 	}	
 
-	if (ser[1].estado == 9) {
-		switch (ser[1].subestado) {
+	if (game.Characters[0].estado == 9) {
+		switch (game.Characters[0].subestado) {
 			case 15:
-				ser[1].subestado = 14; 
-				ser[1].fotograma =9; 
-				ser[1].impulsox=30; 
+				game.Characters[0].subestado = 14; 
+				game.Characters[0].fotograma =9; 
+				game.Characters[0].impulsox=30; 
 				disparagolpe(1,1,3); 
 				break;
 			case 14:
-				ser[1].subestado = 13; 
-				ser[1].fotograma =9; 
-				ser[1].impulsox=30; 
+				game.Characters[0].subestado = 13; 
+				game.Characters[0].fotograma =9; 
+				game.Characters[0].impulsox=30; 
 				break;
 			case 13:
-				ser[1].subestado = 12; 
-				ser[1].fotograma =9; 
-				ser[1].impulsox=30; 
+				game.Characters[0].subestado = 12; 
+				game.Characters[0].fotograma =9; 
+				game.Characters[0].impulsox=30; 
 				break;
 			case 12:
-				ser[1].subestado = 11; 
-				ser[1].fotograma =9; 
-				ser[1].impulsox=20; 
+				game.Characters[0].subestado = 11; 
+				game.Characters[0].fotograma =9; 
+				game.Characters[0].impulsox=20; 
 				break;
 			case 11:
-				ser[1].subestado = 10; 
-				ser[1].fotograma =9; 
-				ser[1].impulsox=10; 
+				game.Characters[0].subestado = 10; 
+				game.Characters[0].fotograma =9; 
+				game.Characters[0].impulsox=10; 
 				break;
 			case 10:
-				ser[1].subestado = 9; 
-				ser[1].fotograma =9;  
+				game.Characters[0].subestado = 9; 
+				game.Characters[0].fotograma =9;  
 				break;
 			case 9:
-				ser[1].subestado=8; 
-				ser[1].fotograma =9;  
+				game.Characters[0].subestado=8; 
+				game.Characters[0].fotograma =9;  
 				break;
 			case 8:
-				ser[1].subestado=7; 
-				ser[1].fotograma =1;  
+				game.Characters[0].subestado=7; 
+				game.Characters[0].fotograma =1;  
 				break;
 			case 7:
-				ser[1].subestado=6; 
-				ser[1].fotograma =1;  
+				game.Characters[0].subestado=6; 
+				game.Characters[0].fotograma =1;  
 				break;
 			case 6:
-				ser[1].subestado=5; 
-				ser[1].fotograma =1;  
+				game.Characters[0].subestado=5; 
+				game.Characters[0].fotograma =1;  
 				break;
 			case 5:
-				ser[1].subestado=4; 
-				ser[1].fotograma =1;  
+				game.Characters[0].subestado=4; 
+				game.Characters[0].fotograma =1;  
 				break;
 			case 4:
-				ser[1].subestado=3; 
-				ser[1].fotograma =1;  
+				game.Characters[0].subestado=3; 
+				game.Characters[0].fotograma =1;  
 				break;
 			case 3:
-				ser[1].subestado=2; 
-				ser[1].fotograma =1;  
+				game.Characters[0].subestado=2; 
+				game.Characters[0].fotograma =1;  
 				break;
 			case 2:
-				ser[1].subestado=1; 
-				ser[1].fotograma =1;  
+				game.Characters[0].subestado=1; 
+				game.Characters[0].fotograma =1;  
 				break;
 			case 1:
-				ser[1].subestado=0; 
-				ser[1].fotograma =1;  
+				game.Characters[0].subestado=0; 
+				game.Characters[0].fotograma =1;  
 				break;
 		}
 				
-		ser[1].linea =1; 
+		game.Characters[0].linea =1; 
 		direccion1 =1;	
 	}
 
-	if (ser[1].estado == 10) {
-		switch (ser[1].subestado) {
+	if (game.Characters[0].estado == 10) {
+		switch (game.Characters[0].subestado) {
 			case 15: 
-				ser[1].subestado = 14; 
-				ser[1].fotograma = 9; 
-				ser[1].impulsox = -30; 
+				game.Characters[0].subestado = 14; 
+				game.Characters[0].fotograma = 9; 
+				game.Characters[0].impulsox = -30; 
 				disparagolpe(1,2,3); 
 				break;
 			case 14: 
-				ser[1].subestado = 13; 
-				ser[1].fotograma = 9; 
-				ser[1].impulsox = -30; 
+				game.Characters[0].subestado = 13; 
+				game.Characters[0].fotograma = 9; 
+				game.Characters[0].impulsox = -30; 
 				break;
 			case 13: 
-				ser[1].subestado = 12; 
-				ser[1].fotograma =9; 
-				ser[1].impulsox=-30; 
+				game.Characters[0].subestado = 12; 
+				game.Characters[0].fotograma =9; 
+				game.Characters[0].impulsox=-30; 
 				break;
 			case 12: 
-				ser[1].subestado = 11; 
-				ser[1].fotograma =9; 
-				ser[1].impulsox=-20; 
+				game.Characters[0].subestado = 11; 
+				game.Characters[0].fotograma =9; 
+				game.Characters[0].impulsox=-20; 
 				break;
 			case 11: 
-				ser[1].subestado = 10; 
-				ser[1].fotograma =9; 
-				ser[1].impulsox=-10; 
+				game.Characters[0].subestado = 10; 
+				game.Characters[0].fotograma =9; 
+				game.Characters[0].impulsox=-10; 
 				break;
 			case 10: 
-				ser[1].subestado = 9; 
-				ser[1].fotograma =9;  
+				game.Characters[0].subestado = 9; 
+				game.Characters[0].fotograma =9;  
 				break;
 			case 9:
-				ser[1].subestado = 8; 
-				ser[1].fotograma = 9;  
+				game.Characters[0].subestado = 8; 
+				game.Characters[0].fotograma = 9;  
 				break;
 			case 8:
-				ser[1].subestado = 7; 
-				ser[1].fotograma = 1;  
+				game.Characters[0].subestado = 7; 
+				game.Characters[0].fotograma = 1;  
 				break;
 			case 7:
-				ser[1].subestado = 6; 
-				ser[1].fotograma = 1;  
+				game.Characters[0].subestado = 6; 
+				game.Characters[0].fotograma = 1;  
 				break;
 			case 6:
-				ser[1].subestado = 5; 
-				ser[1].fotograma = 1;  
+				game.Characters[0].subestado = 5; 
+				game.Characters[0].fotograma = 1;  
 				break;
 			case 5:
-				ser[1].subestado = 4; 
-				ser[1].fotograma = 1;  
+				game.Characters[0].subestado = 4; 
+				game.Characters[0].fotograma = 1;  
 				break;
 			case 4:
-				ser[1].subestado = 3; 
-				ser[1].fotograma = 1;  
+				game.Characters[0].subestado = 3; 
+				game.Characters[0].fotograma = 1;  
 				break;
 			case 3:
-				ser[1].subestado = 2; 
-				ser[1].fotograma = 1;  
+				game.Characters[0].subestado = 2; 
+				game.Characters[0].fotograma = 1;  
 				break;
 			case 2:
-				ser[1].subestado = 1; 
-				ser[1].fotograma = 1;  
+				game.Characters[0].subestado = 1; 
+				game.Characters[0].fotograma = 1;  
 				break;
 			case 1:
-				ser[1].subestado = 0; 
-				ser[1].fotograma = 1;  
+				game.Characters[0].subestado = 0; 
+				game.Characters[0].fotograma = 1;  
 				break;
 		}
 	
-		ser[1].linea =2; 
+		game.Characters[0].linea =2; 
 		direccion1 =0;	
 	}
 		
 	// saltar
 
-	if (ser[2].estado2 == 1 && ser[2].subestado2 > 0) {
+	if (game.Characters[1].estado2 == 1 && game.Characters[1].subestado2 > 0) {
 		if (direccion2 == 1) {	
-			ser[2].linea =1; 
-			switch (ser[2].subestado2) {
+			game.Characters[1].linea =1; 
+			switch (game.Characters[1].subestado2) {
 				case 5:
-					ser[2].subestado2 = 4; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -p2_salto; 
+					game.Characters[1].subestado2 = 4; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -p2_salto; 
 					break;
 				case 4:
-					ser[2].subestado2 = 3; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -5 - p2_salto; 
+					game.Characters[1].subestado2 = 3; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -5 - p2_salto; 
 					break;
 				case 3:
-					ser[2].subestado2 = 2; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -10 - p2_salto; 
+					game.Characters[1].subestado2 = 2; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -10 - p2_salto; 
 					break;
 				case 2:
-					ser[2].subestado2 = 1; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -20; 
+					game.Characters[1].subestado2 = 1; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -20; 
 					break;
 				case 1:
-					ser[2].subestado2 = 0; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -10; 
+					game.Characters[1].subestado2 = 0; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -10; 
 					break;
 			}		
 		}	
 
 		if (direccion2 == 0) {	
-			ser[2].linea = 2; 
-			switch (ser[2].subestado2) {
+			game.Characters[1].linea = 2; 
+			switch (game.Characters[1].subestado2) {
 				case 5:
-					ser[2].subestado2 = 4; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -p2_salto; 
+					game.Characters[1].subestado2 = 4; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -p2_salto; 
 					break;
 				case 4:
-					ser[2].subestado2 = 3; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -5 - p2_salto; 
+					game.Characters[1].subestado2 = 3; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -5 - p2_salto; 
 					break;
 				case 3:
-					ser[2].subestado2 = 2; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -10 - p2_salto; 
+					game.Characters[1].subestado2 = 2; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -10 - p2_salto; 
 					break;
 				case 2:
-					ser[2].subestado2 = 1; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -20; 
+					game.Characters[1].subestado2 = 1; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -20; 
 					break;
 				case 1:
-					ser[2].subestado2 = 0; 
-					ser[2].fotograma = 5; 
-					ser[2].impulsoy = -10; 
+					game.Characters[1].subestado2 = 0; 
+					game.Characters[1].fotograma = 5; 
+					game.Characters[1].impulsoy = -10; 
 					break;
 			}
 		}
 	}
 
-	if (ser[1].estado2 == 1 && ser[1].subestado2 > 0) {
+	if (game.Characters[0].estado2 == 1 && game.Characters[0].subestado2 > 0) {
 		if (direccion1 == 1) {	
-			ser[1].linea = 1; 
-			switch (ser[1].subestado2) {
+			game.Characters[0].linea = 1; 
+			switch (game.Characters[0].subestado2) {
 				case 5:
-					ser[1].subestado2 = 4; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -p1_salto; 
+					game.Characters[0].subestado2 = 4; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -p1_salto; 
 					break;
 				case 4: 
-					ser[1].subestado2 = 3; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -5 - p1_salto; 
+					game.Characters[0].subestado2 = 3; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -5 - p1_salto; 
 					break;
 				case 3:
-					ser[1].subestado2 = 2; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -10 - p2_salto; 
+					game.Characters[0].subestado2 = 2; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -10 - p2_salto; 
 					break;
 				case 2:
-					ser[1].subestado2 = 1; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -20; 
+					game.Characters[0].subestado2 = 1; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -20; 
 					break;
 				case 1:
-					ser[1].subestado2 = 0; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -10; 
+					game.Characters[0].subestado2 = 0; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -10; 
 					break;
 			}
 		}
 
 		if (direccion1 == 0) {	
-			ser[1].linea = 2; 
-			switch (ser[1].subestado2) {
+			game.Characters[0].linea = 2; 
+			switch (game.Characters[0].subestado2) {
 				case 5:
-					ser[1].subestado2 = 4; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -p1_salto; 
+					game.Characters[0].subestado2 = 4; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -p1_salto; 
 					break;
 				case 4:
-					ser[1].subestado2 = 3; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -5 - p1_salto; 
+					game.Characters[0].subestado2 = 3; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -5 - p1_salto; 
 					break;
 				case 3:
-					ser[1].subestado2 = 2; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -10 - p2_salto; 
+					game.Characters[0].subestado2 = 2; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -10 - p2_salto; 
 					break;
 				case 2:
-					ser[1].subestado2 = 1; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -20; 
+					game.Characters[0].subestado2 = 1; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -20; 
 					break;
 				case 1:
-					ser[1].subestado2 = 0; 
-					ser[1].fotograma = 5; 
-					ser[1].impulsoy = -10; 
+					game.Characters[0].subestado2 = 0; 
+					game.Characters[0].fotograma = 5; 
+					game.Characters[0].impulsoy = -10; 
 					break;
 			}
 		}
 	}
 		
 	// lazar ki1
-	if (ser[1].estado == 11 && ser[1].subestado > 0) {
+	if (game.Characters[0].estado == 11 && game.Characters[0].subestado > 0) {
 		if (direccion1 == 1) {	
-			ser[1].linea =1; 
-			switch (ser[1].subestado) {
+			game.Characters[0].linea =1; 
+			switch (game.Characters[0].subestado) {
 				case 7:
-					ser[1].subestado = 6; 
-					ser[1].fotograma = 12; 
-					ser[1].impulsox = -15;
+					game.Characters[0].subestado = 6; 
+					game.Characters[0].fotograma = 12; 
+					game.Characters[0].impulsox = -15;
 					disparaki(1,1); 
 					break;
 				case 6:
-					ser[1].subestado = 5; 
-					ser[1].fotograma = 12; 
-					ser[1].impulsox = -10; 
+					game.Characters[0].subestado = 5; 
+					game.Characters[0].fotograma = 12; 
+					game.Characters[0].impulsox = -10; 
 					break;
 				case 5:
-					ser[1].subestado = 4; 
-					ser[1].fotograma = 12; 
-					ser[1].impulsox = -10; 
+					game.Characters[0].subestado = 4; 
+					game.Characters[0].fotograma = 12; 
+					game.Characters[0].impulsox = -10; 
 					break;
 				case 4:
-					ser[1].subestado = 3; 
-					ser[1].fotograma = 12; 
-					ser[1].impulsox = -5;
+					game.Characters[0].subestado = 3; 
+					game.Characters[0].fotograma = 12; 
+					game.Characters[0].impulsox = -5;
 					break;
 				case 3:
-					ser[1].subestado = 2; 
-					ser[1].fotograma = 12; 
-					ser[1].impulsox = -4; 
+					game.Characters[0].subestado = 2; 
+					game.Characters[0].fotograma = 12; 
+					game.Characters[0].impulsox = -4; 
 					break;
 				case 2:
-					ser[1].subestado = 1; 
-					ser[1].fotograma = 12; 
-					ser[1].impulsox =- 3; 
+					game.Characters[0].subestado = 1; 
+					game.Characters[0].fotograma = 12; 
+					game.Characters[0].impulsox =- 3; 
 					break;
 				case 1:
-					ser[1].subestado = 0; 
-					ser[1].fotograma = 12; 
-					ser[1].impulsox = -2; 
+					game.Characters[0].subestado = 0; 
+					game.Characters[0].fotograma = 12; 
+					game.Characters[0].impulsox = -2; 
 					break;
 			}		
 		}	
 
 		if (direccion1 == 0) {	
-			ser[1].linea =2; 
-			switch (ser[1].subestado) {
+			game.Characters[0].linea =2; 
+			switch (game.Characters[0].subestado) {
 				case 7:
-					ser[1].subestado = 6; 
-					ser[1].fotograma = 12; 
-					ser[1].impulsox = 15; 
+					game.Characters[0].subestado = 6; 
+					game.Characters[0].fotograma = 12; 
+					game.Characters[0].impulsox = 15; 
 					disparaki(1,0); 
 					break;
 				case 6:
-					ser[1].subestado=5; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=10; 
+					game.Characters[0].subestado=5; 
+					game.Characters[0].fotograma =12; 
+					game.Characters[0].impulsox=10; 
 					break;
 				case 5:
-					ser[1].subestado=4; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=10; 
+					game.Characters[0].subestado=4; 
+					game.Characters[0].fotograma =12; 
+					game.Characters[0].impulsox=10; 
 					break;
 				case 4:
-					ser[1].subestado=3; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=5; 
+					game.Characters[0].subestado=3; 
+					game.Characters[0].fotograma =12; 
+					game.Characters[0].impulsox=5; 
 					break;
 				case 3:
-					ser[1].subestado=2; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=4; 
+					game.Characters[0].subestado=2; 
+					game.Characters[0].fotograma =12; 
+					game.Characters[0].impulsox=4; 
 					break;
 				case 2:
-					ser[1].subestado=1; 
-					ser[1].fotograma =12; 
-					ser[1].impulsox=3; 
+					game.Characters[0].subestado=1; 
+					game.Characters[0].fotograma =12; 
+					game.Characters[0].impulsox=3; 
 					break;
 				case 1:
-					ser[1].subestado=0; 
-					ser[1].fotograma =12;
-					ser[1].impulsox=2; 
+					game.Characters[0].subestado=0; 
+					game.Characters[0].fotograma =12;
+					game.Characters[0].impulsox=2; 
 					break;
 			}		
 		}	
 	}	
 
 	// lazar ki2	
-	if (ser[2].estado == 11 && ser[2].subestado > 0) {
+	if (game.Characters[1].estado == 11 && game.Characters[1].subestado > 0) {
 		if (direccion2 == 1) {	
-			ser[2].linea =1; 
-			switch (ser[2].subestado) {
+			game.Characters[1].linea =1; 
+			switch (game.Characters[1].subestado) {
 				case 7:
-					ser[2].subestado=6; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=-15; 
+					game.Characters[1].subestado=6; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=-15; 
 					disparaki(2,1); break;
 				case 6:
-					ser[2].subestado=5; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=-10; 
+					game.Characters[1].subestado=5; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=-10; 
 					break;
 				case 5:
-					ser[2].subestado=4; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=-10; 
+					game.Characters[1].subestado=4; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=-10; 
 					break;
 				case 4:
-					ser[2].subestado=3; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=-5; 
+					game.Characters[1].subestado=3; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=-5; 
 					break;
 				case 3:
-					ser[2].subestado=2; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=-4; 
+					game.Characters[1].subestado=2; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=-4; 
 					break;
 				case 2:
-					ser[2].subestado=1; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=-3; 
+					game.Characters[1].subestado=1; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=-3; 
 					break;
 				case 1:
-					ser[2].subestado=0; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=-2; 
+					game.Characters[1].subestado=0; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=-2; 
 					break;
 			}		
 		}	
 
 		if (direccion2 == 0) {	
-			ser[2].linea =2; 
-			switch (ser[2].subestado) {
+			game.Characters[1].linea =2; 
+			switch (game.Characters[1].subestado) {
 				case 7:
-					ser[2].subestado=6; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=15; 
+					game.Characters[1].subestado=6; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=15; 
 					disparaki(2,0); 
 					break;
 				case 6:
-					ser[2].subestado=5; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=10; 
+					game.Characters[1].subestado=5; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=10; 
 					break;
 				case 5:
-					ser[2].subestado=4; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=10; 
+					game.Characters[1].subestado=4; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=10; 
 					break;
 				case 4:
-					ser[2].subestado=3; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=5; 
+					game.Characters[1].subestado=3; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=5; 
 					break;
 				case 3:
-					ser[2].subestado=2; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=4; 
+					game.Characters[1].subestado=2; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=4; 
 					break;
 				case 2:
-					ser[2].subestado=1; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=3; 
+					game.Characters[1].subestado=1; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=3; 
 					break;
 				case 1:
-					ser[2].subestado=0; 
-					ser[2].fotograma =12; 
-					ser[2].impulsox=2; 
+					game.Characters[1].subestado=0; 
+					game.Characters[1].fotograma =12; 
+					game.Characters[1].impulsox=2; 
 					break;
 			}		
 		}	
@@ -1967,138 +1871,138 @@ function jugar() {
 
 	// herido
 	if (vida1 < 6) {
-		ser[1].estado=12; 
-		ser[1].subestado=5;
+		game.Characters[0].estado=12; 
+		game.Characters[0].subestado=5;
 	}
 	
 	if (vida2 < 6) {
-		ser[2].estado=12; 
-		ser[2].subestado=5;
+		game.Characters[1].estado=12; 
+		game.Characters[1].subestado=5;
 	}	
 
-	if (ser[2].estado == 12 && ser[2].subestado > 0) {
+	if (game.Characters[1].estado == 12 && game.Characters[1].subestado > 0) {
 		if (direccion2 == 1) {	
-			ser[2].linea = 1; 
-			switch (ser[2].subestado) {
+			game.Characters[1].linea = 1; 
+			switch (game.Characters[1].subestado) {
 				case 5:
-					ser[2].subestado=4; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=-10; 
+					game.Characters[1].subestado=4; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=-10; 
 					break;
 				case 4:
-					ser[2].subestado=3; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=-5; 
+					game.Characters[1].subestado=3; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=-5; 
 					break;
 				case 3:
-					ser[2].subestado=2; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=-4; 
+					game.Characters[1].subestado=2; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=-4; 
 					break;
 				case 2:
-					ser[2].subestado=1; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=-3; 
+					game.Characters[1].subestado=1; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=-3; 
 					break;
 				case 1:
-					ser[2].subestado = 0; 
-					ser[2].fotograma = 11; 
-					ser[2].impulsox = -2; 
+					game.Characters[1].subestado = 0; 
+					game.Characters[1].fotograma = 11; 
+					game.Characters[1].impulsox = -2; 
 					break;
 			}		
 		}	
 
 		if (direccion2 == 0) {	
-			ser[2].linea =2; 
-			switch (ser[2].subestado) {
+			game.Characters[1].linea =2; 
+			switch (game.Characters[1].subestado) {
 				case 5:
-					ser[2].subestado=4; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=10; 
+					game.Characters[1].subestado=4; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=10; 
 					break;
 				case 4:
-					ser[2].subestado=3; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=5; 
+					game.Characters[1].subestado=3; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=5; 
 					break;
 				case 3:
-					ser[2].subestado=2; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=4; 
+					game.Characters[1].subestado=2; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=4; 
 					break;
 				case 2: 
-					ser[2].subestado=1; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=3; 
+					game.Characters[1].subestado=1; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=3; 
 					break;
 				case 1:
-					ser[2].subestado=0; 
-					ser[2].fotograma =11; 
-					ser[2].impulsox=2; 
+					game.Characters[1].subestado=0; 
+					game.Characters[1].fotograma =11; 
+					game.Characters[1].impulsox=2; 
 					break;
 			}		
 		}		
 	}	
 
-	if (ser[1].estado == 12 && ser[1].subestado > 0) {
+	if (game.Characters[0].estado == 12 && game.Characters[0].subestado > 0) {
 		if (direccion1 == 1) {	
-			ser[1].linea =1; 
-			switch (ser[1].subestado) {
+			game.Characters[0].linea =1; 
+			switch (game.Characters[0].subestado) {
 				case 5:
-					ser[1].subestado=4; 
-					ser[1].fotograma =11; 
-					ser[1].impulsox=-10; 
+					game.Characters[0].subestado=4; 
+					game.Characters[0].fotograma =11; 
+					game.Characters[0].impulsox=-10; 
 					break;
 				case 4:
-					ser[1].subestado=3; 
-					ser[1].fotograma =11; 
-					ser[1].impulsox=-5; 
+					game.Characters[0].subestado=3; 
+					game.Characters[0].fotograma =11; 
+					game.Characters[0].impulsox=-5; 
 					break;
 				case 3:
-					ser[1].subestado=2; 
-					ser[1].fotograma =11; 
-					ser[1].impulsox=-4; 
+					game.Characters[0].subestado=2; 
+					game.Characters[0].fotograma =11; 
+					game.Characters[0].impulsox=-4; 
 					break;
 				case 2:
-					ser[1].subestado=1; 
-					ser[1].fotograma =11; 
-					ser[1].impulsox=-3; 
+					game.Characters[0].subestado=1; 
+					game.Characters[0].fotograma =11; 
+					game.Characters[0].impulsox=-3; 
 					break;
 				case 1:
-					ser[1].subestado=0; 
-					ser[1].fotograma =11; 
-					ser[1].impulsox=-2; 
+					game.Characters[0].subestado=0; 
+					game.Characters[0].fotograma =11; 
+					game.Characters[0].impulsox=-2; 
 					break;
 			}		
 		}	
 
 		if (direccion1 == 0) {	
-			ser[1].linea =2; 
-			switch (ser[1].subestado) {
+			game.Characters[0].linea =2; 
+			switch (game.Characters[0].subestado) {
 				case 5:
-					ser[1].subestado=4; 
-					ser[1].fotograma =11; 
-					ser[1].impulsox=10; 
+					game.Characters[0].subestado=4; 
+					game.Characters[0].fotograma =11; 
+					game.Characters[0].impulsox=10; 
 					break;
 				case 4:
-					ser[1].subestado=3;
-					ser[1].fotograma =11;
-					ser[1].impulsox=5; 
+					game.Characters[0].subestado=3;
+					game.Characters[0].fotograma =11;
+					game.Characters[0].impulsox=5; 
 					break;
 				case 3:
-					ser[1].subestado=2; 
-					ser[1].fotograma =11; 
-					ser[1].impulsox=4; 
+					game.Characters[0].subestado=2; 
+					game.Characters[0].fotograma =11; 
+					game.Characters[0].impulsox=4; 
 					break;
 				case 2:
-					ser[1].subestado = 1; 
-					ser[1].fotograma = 11; 
-					ser[1].impulsox = 3; 
+					game.Characters[0].subestado = 1; 
+					game.Characters[0].fotograma = 11; 
+					game.Characters[0].impulsox = 3; 
 					break;
 				case 1:
-					ser[1].subestado = 0; 
-					ser[1].fotograma = 11; 
-					ser[1].impulsox=2; 
+					game.Characters[0].subestado = 0; 
+					game.Characters[0].fotograma = 11; 
+					game.Characters[0].impulsox=2; 
 					break;
 			}		
 		}		
@@ -2132,126 +2036,126 @@ function control_naves () {
 
 	// 3 golpes jugador1
 	
-	if (presiona[tecla_disparo] && contador_golpe1 == 0 && (ser[1].subestado == 0 || ser[1].estado == 4  || ser[1].estado == 2)) {
+	if (presiona[tecla_disparo] && contador_golpe1 == 0 && (game.Characters[0].subestado == 0 || game.Characters[0].estado == 4  || game.Characters[0].estado == 2)) {
 		if (direccion1==1) {
-			ser[1].estado=5; 
-			ser[1].subestado=10;
+			game.Characters[0].estado=5; 
+			game.Characters[0].subestado=10;
 		}
 
 		if (direccion1==0) {
-			ser[1].estado=6; 
-			ser[1].subestado=10;
+			game.Characters[0].estado=6; 
+			game.Characters[0].subestado=10;
 		}		
 		contador_golpe1	= 1;	
 	}		
 	
-	else if (presiona[tecla_disparo] &&  contador_golpe1==0 && (ser[1].estado==5 || ser[1].estado==6)) {
+	else if (presiona[tecla_disparo] &&  contador_golpe1==0 && (game.Characters[0].estado==5 || game.Characters[0].estado==6)) {
 		if (direccion1==1) {
-			ser[1].estado=7; 
-			ser[1].subestado=10;
+			game.Characters[0].estado=7; 
+			game.Characters[0].subestado=10;
 		}
 
 		if (direccion1==0) {
-			ser[1].estado=8; 
-			ser[1].subestado=10;
+			game.Characters[0].estado=8; 
+			game.Characters[0].subestado=10;
 		}		
 		contador_golpe1	= 1;			
 	}	
 
-	else if (presiona[tecla_disparo] &&  contador_golpe1==0 && (ser[1].estado==7 || ser[1].estado==8)) {
+	else if (presiona[tecla_disparo] &&  contador_golpe1==0 && (game.Characters[0].estado==7 || game.Characters[0].estado==8)) {
 		if (direccion1==1) {
-			ser[1].estado=9; 
-			ser[1].subestado=15;
+			game.Characters[0].estado=9; 
+			game.Characters[0].subestado=15;
 		}	
 		if (direccion1==0) {
-			ser[1].estado=10; 
-			ser[1].subestado=15;
+			game.Characters[0].estado=10; 
+			game.Characters[0].subestado=15;
 		}
 		contador_golpe1	= 1;			
 	}
 	
 	//3 golpes jugador2
 		
-	if (presiona[tecla_disparo2] && contador_golpe2==0 && (ser[2].subestado==0 || ser[2].estado==4  || ser[2].estado==2)) {
+	if (presiona[tecla_disparo2] && contador_golpe2==0 && (game.Characters[1].subestado==0 || game.Characters[1].estado==4  || game.Characters[1].estado==2)) {
 		if (direccion2==1) {
-			ser[2].estado=5; 
-			ser[2].subestado=10;
+			game.Characters[1].estado=5; 
+			game.Characters[1].subestado=10;
 		}	
 		if (direccion2==0) {
-			ser[2].estado=6; 
-			ser[2].subestado=10;
+			game.Characters[1].estado=6; 
+			game.Characters[1].subestado=10;
 		}
 		contador_golpe2	= 1;	
 	}		
 	
-	else if (presiona[tecla_disparo2] &&  contador_golpe2==0 && (ser[2].estado==5 || ser[2].estado==6)) {
+	else if (presiona[tecla_disparo2] &&  contador_golpe2==0 && (game.Characters[1].estado==5 || game.Characters[1].estado==6)) {
 		if (direccion2 == 1) {
-			ser[2].estado=7; 
-			ser[2].subestado=10;
+			game.Characters[1].estado=7; 
+			game.Characters[1].subestado=10;
 		}	
 		if (direccion2 == 0) {
-			ser[2].estado=8; 
-			ser[2].subestado=10;
+			game.Characters[1].estado=8; 
+			game.Characters[1].subestado=10;
 		}
 		contador_golpe2	= 1;			
 	}	
 
-	else if (presiona[tecla_disparo2] &&  contador_golpe2==0 && (ser[2].estado==7 || ser[2].estado==8)) {
+	else if (presiona[tecla_disparo2] &&  contador_golpe2==0 && (game.Characters[1].estado==7 || game.Characters[1].estado==8)) {
 		if (direccion2==1) {
-			ser[2].estado=9; 
-			ser[2].subestado=15;
+			game.Characters[1].estado=9; 
+			game.Characters[1].subestado=15;
 		}
 		if (direccion2==0) {
-			ser[2].estado=10; 
-			ser[2].subestado=15;
+			game.Characters[1].estado=10; 
+			game.Characters[1].subestado=15;
 		}
 		contador_golpe2	= 1;			
 	}
 
 	
 	// caminar jugador1
-	if ( (presiona[tecla_derecha1]) && (ser[1].subestado==0 || ser[1].estado==4  || ser[1].estado==2)) {
-		ser[1].estado=2; 
-		ser[1].subestado=5;
+	if ( (presiona[tecla_derecha1]) && (game.Characters[0].subestado==0 || game.Characters[0].estado==4  || game.Characters[0].estado==2)) {
+		game.Characters[0].estado=2; 
+		game.Characters[0].subestado=5;
 	}
 	
-	else if ((presiona[tecla_izquierda1]) && (ser[1].subestado==0 || ser[1].estado==2 || ser[1].estado==4)) {
-		ser[1].estado=4; 
-		ser[1].subestado=5;
+	else if ((presiona[tecla_izquierda1]) && (game.Characters[0].subestado==0 || game.Characters[0].estado==2 || game.Characters[0].estado==4)) {
+		game.Characters[0].estado=4; 
+		game.Characters[0].subestado=5;
 	}
 	
 	//caminar jugador2
-	if ((presiona[tecla_derecha2]) && (ser[2].subestado==0 || ser[2].estado==4  || ser[2].estado==2)) {
-		ser[2].estado=2; 
-		ser[2].subestado=5;
+	if ((presiona[tecla_derecha2]) && (game.Characters[1].subestado==0 || game.Characters[1].estado==4  || game.Characters[1].estado==2)) {
+		game.Characters[1].estado=2; 
+		game.Characters[1].subestado=5;
 	}
 	
-	else if ((presiona[tecla_izquierda2]) && (ser[2].subestado==0 || ser[2].estado==2 || ser[2].estado==4)) {
-		ser[2].estado=4; 
-		ser[2].subestado=5;
+	else if ((presiona[tecla_izquierda2]) && (game.Characters[1].subestado==0 || game.Characters[1].estado==2 || game.Characters[1].estado==4)) {
+		game.Characters[1].estado=4; 
+		game.Characters[1].subestado=5;
 	}
 	
 	// saltar
 	if ((presiona[tecla_arriba1] && salto_potencia1 > 0)) {
-		ser[1].estado2 = 1; 
-		ser[1].subestado2 = 5;
+		game.Characters[0].estado2 = 1; 
+		game.Characters[0].subestado2 = 5;
 	}
 	
 	if ((presiona[tecla_arriba2] && salto_potencia2 > 0)) {
-		ser[2].estado2 = 1; 
-		ser[2].subestado2 = 5;
+		game.Characters[1].estado2 = 1; 
+		game.Characters[1].subestado2 = 5;
 	}
 	
 	// lanzar ki
-	if (presiona[tecla_magia1] && ki1 > 5 && contador_bola1 == 0 && (ser[1].subestado == 0 || ser[1].estado == 4  || ser[1].estado == 2)) {
-		ser[1].estado = 11; 
-		ser[1].subestado = 7;	
+	if (presiona[tecla_magia1] && ki1 > 5 && contador_bola1 == 0 && (game.Characters[0].subestado == 0 || game.Characters[0].estado == 4  || game.Characters[0].estado == 2)) {
+		game.Characters[0].estado = 11; 
+		game.Characters[0].subestado = 7;	
 		contador_bola1	= 1;	
 	}
 	
-	if (presiona[tecla_magia2] && ki2 > 5 && contador_bola2 == 0 && (ser[2].subestado == 0 || ser[2].estado == 4  || ser[2].estado == 2)) {
-		ser[2].estado = 11; 
-		ser[2].subestado = 7;	
+	if (presiona[tecla_magia2] && ki2 > 5 && contador_bola2 == 0 && (game.Characters[1].subestado == 0 || game.Characters[1].estado == 4  || game.Characters[1].estado == 2)) {
+		game.Characters[1].estado = 11; 
+		game.Characters[1].subestado = 7;	
 		contador_bola2	= 1;	
 	}	
 }
@@ -2268,40 +2172,40 @@ function CreateScene() {
     }
 
     //#region Player 1
-    ser[1].x = 100; 
-    ser[1].y = 500; 
-    ser[1].subestado = 0; 
-    ser[1].w = 70; 
-    ser[1].h = 70; 
-    ser[1].volumen = 100; 
-    ser[1].dibujo = 1; 
-    ser[1].fotograma = 1; 
-    ser[1].linea = 1; 
+    game.Characters[0].x = 100; 
+    game.Characters[0].y = 500; 
+    game.Characters[0].subestado = 0; 
+    game.Characters[0].w = 70; 
+    game.Characters[0].h = 70; 
+    game.Characters[0].volumen = 100; 
+    game.Characters[0].dibujo = 1; 
+    game.Characters[0].fotograma = 1; 
+    game.Characters[0].linea = 1; 
 
 	// Physics
-    ser[1].masa = 10; 
-    ser[1].etereo = 1; 
-    ser[1].vida = 1;
+    game.Characters[0].masa = 10; 
+    game.Characters[0].etereo = 1; 
+    game.Characters[0].vida = 1;
     direccion1 = 1;
 
     Images[1].src = './resources/p1.png';
 	//#endregion
 
     //#region Player 2
-    ser[2].x = 800; 
-    ser[2].y = 500; 
-    ser[2].subestado = 0; 
-    ser[2].w = 70; 
-    ser[2].h = 70; 
-    ser[2].volumen = 100; 
-    ser[2].dibujo = 2; 
-    ser[2].fotograma = 1; 
-    ser[2].linea = 2;
+    game.Characters[1].x = 800; 
+    game.Characters[1].y = 500; 
+    game.Characters[1].subestado = 0; 
+    game.Characters[1].w = 70; 
+    game.Characters[1].h = 70; 
+    game.Characters[1].volumen = 100; 
+    game.Characters[1].dibujo = 2; 
+    game.Characters[1].fotograma = 1; 
+    game.Characters[1].linea = 2;
 
 	// Physics
-    ser[2].masa = 10; 
-    ser[2].etereo = 1; 
-    ser[2].vida = 1;
+    game.Characters[1].masa = 10; 
+    game.Characters[1].etereo = 1; 
+    game.Characters[1].vida = 1;
     direccion2 = 0;
 
     Images[2].src = './resources/2.png';

@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Aclonica&family=Gajraj+One&display=swap");
+html {
+  overflow-x: hidden;
+  background: #000;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #000;
+  background-image: url(../resources/back.jpg);
+  background-position: top center;
+  background-repeat: no-repeat, no-repeat;
+}
+.container .title {
+  top: 40%;
+  position: absolute;
+  margin-bottom: 20px;
+  margin: auto;
+  color: #019FD4;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.85);
+  box-shadow: rgba(0, 0, 0, 0.95) 0px 54px 55px, rgba(0, 0, 0, 0.95) 0px -25px 30px, rgba(0, 0, 0, 0.95) 0px 25px 60px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.container .title .battle-net {
+  line-height: 30px;
+  font-family: "Aclonica", sans-serif;
+  font-size: 100px;
+  background: -webkit-linear-gradient(#ff8400, #ffea00);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+.container .sub-title {
+  top: 15%;
+  position: relative;
+  margin: auto;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  box-shadow: rgba(0, 0, 0, 0.95) 0px 54px 55px, rgba(0, 0, 0, 0.95) 0px -25px 30px, rgba(0, 0, 0, 0.95) 0px 25px 60px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.container .sub-title .press-enter {
+  line-height: 30px;
+  font-family: "Aclonica", sans-serif;
+  font-size: 50px;
+  background: -webkit-linear-gradient(#ff8400, #ffea00);
+  -webkit-background-clip: text;
+          background-clip: text;
+  background-color: rgba(0, 0, 0, 0.85);
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  animation: textGrowShrink 2s infinite;
+}
+
+@keyframes textGrowShrink {
+  0%, 100% {
+    font-size: 50px;
+  }
+  50% {
+    font-size: 55px;
+  }
+}
+.container2 {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #000;
+  background-image: url(../resources/back2.jpg);
+  background-position: top center;
+  background-repeat: no-repeat, no-repeat;
+}
+.container2 .sub-title {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.container2 .sub-title .press-enter2 {
+  line-height: 125px;
+  font-family: "Aclonica", sans-serif;
+  font-size: 50px;
+  background: -webkit-linear-gradient(#ff8400, #ffea00);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  animation: textGrowShrink2 2s infinite;
+}
+.container2 .sub-title .selected {
+  animation: textGrowShrink3 2s infinite;
+  background: -webkit-linear-gradient(#ff9900, #ffff00);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes textGrowShrink {
+  0%, 100% {
+    font-size: 50px;
+  }
+  50% {
+    font-size: 55px;
+  }
+}
+@keyframes textGrowShrink2 {
+  0%, 100% {
+    font-size: 50px;
+  }
+  50% {
+    font-size: 55px;
+  }
+}
+@keyframes textGrowShrink3 {
+  0%, 100% {
+    font-size: 70px;
+  }
+  50% {
+    font-size: 75px;
+  }
+}/*# sourceMappingURL=main.css.map */

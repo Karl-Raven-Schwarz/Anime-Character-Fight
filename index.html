@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Anime Character Fight</title>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Character Fight</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="icon" href="./img/icon.png" type="image/png">
+</head>
 
-    <body>
-        <canvas id="iijuego" width="800" height="600" style="background:#999">Error!</canvas>
+<body> 
+    <div class="container">
+        <div class="title">
+            <span class="battle-net">Anime Character Fight</span>
+        </div>
 
-        <audio id="sonidofx" src="./resources/sounds/musica1.wav" loop="true"  style="display: none;" volume="0.2"></audio>
-        <audio id="sonidofx2" src="./resources/sounds/musica1.wav" style="display: none;"></audio>
-        <audio id="sonidofx_explosion" src="./resources/sounds/musica1.wav" style="display: none;" volume="0.5"></audio>
-        <audio id="sonidofx_mus" src="./resources/sounds/musica1.wav" loop="true" style="display: none;"></audio>
+        <div class="sub-title">
+            <span class="press-enter">PRESS ENTER</span>
+        </div>
+    </div>
 
-        <script type="application/javascript" src="./Engine.js"></script>
-        <script type="application/javascript" src="./Character.js"></script>
-        <script type="application/javascript" src="./Mirror.js"></script>
-        <script type="application/javascript" src="./Game.js"></script>
-
-    </body>
+    <script src="./scripts/index.js"></script>
+</body>
 </html>
